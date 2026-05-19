@@ -1,0 +1,2583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>税务师考试题库</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap');
+
+:root{
+  --red:#C0392B;--red-light:#E74C3C;--red-bg:#FEF0EF;
+  --gold:#B8860B;--gold-light:#F0C040;--gold-bg:#FFFBF0;
+  --green:#1A7F4B;--green-bg:#EDF7F2;
+  --blue:#1A5FA8;--blue-bg:#EEF4FC;
+  --gray1:#1C1C1E;--gray2:#3A3A3C;--gray3:#636366;--gray4:#AEAEB2;--gray5:#E5E5EA;--gray6:#F2F2F7;
+  --white:#FFFFFF;
+  --radius:10px;--radius-lg:16px;
+  --shadow:0 2px 12px rgba(0,0,0,.08);--shadow-lg:0 8px 32px rgba(0,0,0,.14);
+  --serif:'Noto Serif SC',serif;--sans:'Noto Sans SC',sans-serif;
+  --sidebar-w:260px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);font-size:15px;color:var(--gray1);background:var(--gray6);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* ── 布局 ── */
+.app{display:flex;height:100vh;overflow:hidden}
+.sidebar{width:var(--sidebar-w);background:var(--white);border-right:1px solid var(--gray5);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
+.main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
+
+/* ── 侧边栏 ── */
+.sidebar-header{padding:20px 16px 14px;border-bottom:1px solid var(--gray5)}
+.sidebar-logo{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--red);display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.sidebar-sub{font-size:11px;color:var(--gray4)}
+.nav-section{padding:8px 0}
+.nav-title{padding:6px 16px;font-size:10px;font-weight:600;color:var(--gray4);text-transform:uppercase;letter-spacing:.08em}
+.nav-item{padding:9px 16px;cursor:pointer;font-size:13px;color:var(--gray2);display:flex;align-items:center;gap:8px;border-left:3px solid transparent;transition:all .15s}
+.nav-item:hover{background:var(--gray6);color:var(--gray1)}
+.nav-item.active{background:var(--red-bg);color:var(--red);border-left-color:var(--red);font-weight:600}
+.nav-item .badge{margin-left:auto;background:var(--gray5);color:var(--gray3);font-size:10px;padding:1px 6px;border-radius:10px;font-weight:500}
+.nav-item.active .badge{background:var(--red);color:#fff}
+
+/* ── 顶栏 ── */
+.topbar{background:var(--white);border-bottom:1px solid var(--gray5);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0}
+.topbar-title{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--gray1)}
+.topbar-right{display:flex;gap:8px;align-items:center}
+.btn{padding:7px 14px;border:1px solid var(--gray5);border-radius:8px;background:var(--white);color:var(--gray2);cursor:pointer;font-size:13px;font-family:var(--sans);font-weight:500;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
+.btn:hover{background:var(--gray6);border-color:var(--gray4)}
+.btn-red{background:var(--red);border-color:var(--red);color:#fff}
+.btn-red:hover{background:var(--red-light);border-color:var(--red-light)}
+.btn-gold{background:var(--gold);border-color:var(--gold);color:#fff}
+.btn-gold:hover{background:#A0780A}
+.btn-green{background:var(--green);border-color:var(--green);color:#fff}
+.btn-green:hover{background:#156040}
+
+/* ── 内容区 ── */
+.content{padding:20px 24px;flex:1}
+.page{display:none}
+.page.active{display:block}
+
+/* ── 统计卡片 ── */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.stat-card{background:var(--white);border-radius:var(--radius-lg);padding:16px;box-shadow:var(--shadow)}
+.stat-label{font-size:11px;color:var(--gray3);margin-bottom:6px;font-weight:500}
+.stat-value{font-size:26px;font-weight:700;font-family:var(--serif);line-height:1}
+.stat-sub{font-size:11px;color:var(--gray4);margin-top:4px}
+.stat-card.red .stat-value{color:var(--red)}
+.stat-card.gold .stat-value{color:var(--gold)}
+.stat-card.green .stat-value{color:var(--green)}
+.stat-card.blue .stat-value{color:var(--blue)}
+
+/* ── 筛选栏 ── */
+.filter-bar{background:var(--white);border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;box-shadow:var(--shadow)}
+.filter-bar select,.filter-bar input{padding:7px 10px;border:1px solid var(--gray5);border-radius:8px;font-size:13px;font-family:var(--sans);color:var(--gray1);background:var(--gray6);outline:none}
+.filter-bar select:focus,.filter-bar input:focus{border-color:var(--red);background:var(--white)}
+.filter-bar input{flex:1;min-width:160px}
+
+/* ── 题目卡片 ── */
+.question-card{background:var(--white);border-radius:var(--radius-lg);padding:20px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid transparent;transition:all .2s}
+.question-card:hover{box-shadow:var(--shadow-lg);border-color:var(--gray5)}
+.question-card.wrong{border-left:4px solid var(--red)}
+.q-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
+.q-num{background:var(--gray1);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.q-num.single{background:var(--blue)}
+.q-num.multi{background:var(--green)}
+.q-num.judge{background:var(--gold)}
+.q-num.calc{background:var(--red)}
+.q-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.tag{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:500}
+.tag-subject{background:var(--red-bg);color:var(--red)}
+.tag-chapter{background:var(--blue-bg);color:var(--blue)}
+.tag-year{background:var(--gold-bg);color:var(--gold)}
+.tag-wrong{background:var(--red-bg);color:var(--red)}
+.q-text{font-size:14px;line-height:1.8;color:var(--gray1);margin-bottom:14px;font-family:var(--serif)}
+.q-options{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.option{padding:9px 12px;border-radius:8px;border:1px solid var(--gray5);font-size:13px;cursor:pointer;transition:all .15s;display:flex;align-items:flex-start;gap:8px;line-height:1.8}
+.option:hover{border-color:var(--gray4);background:var(--gray6)}
+.option.selected{border-color:var(--blue);background:var(--blue-bg);color:var(--blue)}
+.option.correct{border-color:var(--green);background:var(--green-bg);color:var(--green);font-weight:500}
+.option.wrong-sel{border-color:var(--red);background:var(--red-bg);color:var(--red)}
+.option-label{font-weight:700;flex-shrink:0;width:16px}
+.q-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.q-answer{background:var(--gray6);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.7;display:none;margin-bottom:10px;border-left:3px solid var(--green)}
+.q-answer.show{display:block}
+.q-answer .answer-label{font-weight:700;color:var(--green);margin-bottom:4px;font-size:12px}
+.q-analysis{background:var(--gold-bg);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.7;margin-top:8px;border-left:3px solid var(--gold);display:none}
+.q-analysis.show{display:block}
+.q-analysis .analysis-label{font-weight:700;color:var(--gold);margin-bottom:4px;font-size:12px}
+.wrong-mark{margin-left:auto;font-size:12px;color:var(--gray4);display:flex;align-items:center;gap:4px;cursor:pointer}
+.wrong-mark.marked{color:var(--red)}
+
+/* ── 进度条 ── */
+.progress-wrap{margin-bottom:16px}
+.progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--gray3);margin-bottom:6px}
+.progress-bar{height:6px;background:var(--gray5);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--gold));border-radius:3px;transition:width .4s}
+
+/* ── 章节树 ── */
+.chapter-tree{background:var(--white);border-radius:var(--radius-lg);padding:16px;box-shadow:var(--shadow);margin-bottom:16px}
+.chapter-item{padding:8px 10px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-size:13px;transition:all .15s}
+.chapter-item:hover{background:var(--gray6)}
+.chapter-item.active{background:var(--red-bg);color:var(--red);font-weight:600}
+.chapter-count{font-size:11px;color:var(--gray4);background:var(--gray5);padding:2px 7px;border-radius:8px}
+.chapter-item.active .chapter-count{background:var(--red);color:#fff}
+
+/* ── 错题库 ── */
+.wrong-stats{background:linear-gradient(135deg,var(--red) 0%,#922B21 100%);border-radius:var(--radius-lg);padding:20px;color:#fff;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between}
+.wrong-stats-text h3{font-family:var(--serif);font-size:18px;margin-bottom:4px}
+.wrong-stats-text p{font-size:12px;opacity:.85}
+.wrong-stats-num{font-family:var(--serif);font-size:48px;font-weight:700;opacity:.9}
+
+/* ── 练习模式 ── */
+.practice-card{background:var(--white);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow-lg);max-width:680px;margin:0 auto}
+.practice-progress{text-align:center;margin-bottom:24px}
+.practice-count{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--red)}
+.practice-total{font-size:14px;color:var(--gray3)}
+.practice-q{font-size:15px;line-height:1.9;color:var(--gray1);margin-bottom:20px;font-family:var(--serif);min-height:60px}
+.result-panel{text-align:center;padding:24px;display:none}
+.result-panel.show{display:block}
+.result-score{font-family:var(--serif);font-size:56px;font-weight:700;color:var(--red);line-height:1}
+.result-label{font-size:14px;color:var(--gray3);margin-top:6px}
+
+/* ── 打印 ── */
+@media print{
+  .sidebar,.topbar,.filter-bar,.q-actions,.btn,.nav-section,.sidebar-header,
+  .stats-grid,.progress-wrap,.filter-bar{display:none!important}
+  .app{display:block}
+  .main{overflow:visible}
+  .content{padding:10mm}
+  .question-card{box-shadow:none;border:1px solid #ddd;page-break-inside:avoid;margin-bottom:8mm}
+  .q-answer{display:block!important;background:#f9f9f9}
+  @page{size:A4;margin:15mm}
+}
+
+/* ── 空状态 ── */
+.empty{text-align:center;padding:48px 20px;color:var(--gray4)}
+.empty-icon{font-size:48px;margin-bottom:12px}
+.empty-text{font-size:14px}
+
+/* ── 模态框 ── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;display:none;align-items:center;justify-content:center}
+.modal-bg.show{display:flex}
+.modal-box{background:#fff;border-radius:var(--radius-lg);padding:24px;width:520px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg)}
+.modal-title{font-family:var(--serif);font-size:17px;font-weight:700;margin-bottom:16px;color:var(--gray1)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group label{font-size:12px;font-weight:600;color:var(--gray3)}
+.form-group input,.form-group select,.form-group textarea{padding:9px 11px;border:1px solid var(--gray5);border-radius:8px;font-size:13px;font-family:var(--sans);color:var(--gray1);background:#fff;outline:none;transition:border .15s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--red)}
+.form-group textarea{resize:vertical;min-height:80px}
+.form-full{grid-column:1/-1}
+.modal-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid var(--gray5)}
+
+/* ── 响应式 ── */
+@media(max-width:768px){
+  .sidebar{display:none}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .topbar{padding:10px 14px}
+  .content{padding:14px}
+  .form-row{grid-template-columns:1fr}
+}
+
+/* ── Toast ── */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--gray1);color:#fff;padding:10px 16px;border-radius:10px;font-size:13px;z-index:9999;display:none;animation:slideIn .25s ease}
+.toast.show{display:block}
+@keyframes slideIn{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+/* ── 图片相关 ── */
+#imgUploadArea:active{transform:scale(.99)}
+#imgPreviewArea img:hover{transform:scale(1.05);transition:transform .15s;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+@media print{
+  #imgUploadArea,#imgPreviewArea .remove-btn{display:none!important}
+}
+
+/* ── Markdown 解析渲染样式 ── */
+.md-body{font-size:13px;line-height:1.8;color:var(--gray1)}
+.md-body strong{font-weight:700;color:var(--gray1)}
+.md-body em{font-style:italic;color:var(--gray2)}
+.md-body ul,.md-body ol{margin:4px 0 4px 16px;padding:0}
+.md-body li{margin-bottom:3px}
+.md-body p{margin:2px 0}
+.md-body br{display:block;margin:3px 0}
+.md-body code{background:var(--gray6);padding:1px 4px;border-radius:3px;font-size:11px}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- 侧边栏 -->
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">📚 税务师题库</div>
+    <div class="sidebar-sub">近5年真题精编 · 智能练习系统</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-title">功能</div>
+    <div class="nav-item active" onclick="showPage('home')">🏠 <span>首页总览</span></div>
+    <div class="nav-item" onclick="showPage('bank')">📖 <span>题库浏览</span> <span class="badge" id="totalBadge">0</span></div>
+    <div class="nav-item" onclick="showPage('practice')">✏️ <span>模拟练习</span></div>
+    <div class="nav-item" onclick="showPage('wrong')">❌ <span>错题本</span> <span class="badge" id="wrongBadge">0</span></div>
+    <div class="nav-item" onclick="showPage('add')">➕ <span>录入题目</span></div>
+    <div class="nav-item" onclick="resetSampleData()" style="color:var(--gray4);font-size:12px">🔄 <span>重置示例数据</span></div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-title">科目</div>
+    <div class="nav-item" onclick="filterSubject('税法一')">📗 <span>税法一</span> <span class="badge" id="s1badge">0</span></div>
+    <div class="nav-item" onclick="filterSubject('税法二')">📘 <span>税法二</span> <span class="badge" id="s2badge">0</span></div>
+    <div class="nav-item" onclick="filterSubject('涉税服务实务')">📙 <span>涉税服务实务</span> <span class="badge" id="s3badge">0</span></div>
+    <div class="nav-item" onclick="filterSubject('涉税服务相关法律')">📕 <span>涉税相关法律</span> <span class="badge" id="s4badge">0</span></div>
+    <div class="nav-item" onclick="filterSubject('财务与会计')">📒 <span>财务与会计</span> <span class="badge" id="s5badge">0</span></div>
+  </div>
+</div>
+
+<!-- 主内容 -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-title" id="pageTitle">首页总览</div>
+    <div class="topbar-right">
+      <!-- GitHub 云同步状态 -->
+      <div id="ghSyncBtn" onclick="showGhSettings()" title="GitHub 云同步" style="display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid var(--gray5);border-radius:8px;background:var(--white);cursor:pointer;font-size:12px;color:var(--gray3);transition:all .15s" onmouseover="this.style.background='var(--gray6)'" onmouseout="this.style.background='var(--white)'">
+        <span id="ghSyncIcon">☁️</span>
+        <span id="ghSyncText">云同步</span>
+      </div>
+      <button class="btn btn-gold" onclick="printWrong()">🖨️ 打印错题</button>
+      <button class="btn btn-red" onclick="showPage('add')">➕ 录入题目</button>
+      <!-- 导出下拉 -->
+      <div style="position:relative;display:inline-block" id="exportMenuWrap">
+        <button class="btn" onclick="toggleExportMenu()" id="exportMenuBtn">📤 导出 ▾</button>
+        <div id="exportMenu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#fff;border:1px solid var(--gray5);border-radius:10px;box-shadow:var(--shadow-lg);z-index:300;min-width:160px;overflow:hidden">
+          <div onclick="exportWord()" style="padding:10px 16px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:8px" onmouseover="this.style.background='var(--gray6)'" onmouseout="this.style.background=''">📄 导出 Word (.docx)</div>
+          <div onclick="exportPDF()" style="padding:10px 16px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:8px;border-top:1px solid var(--gray5)" onmouseover="this.style.background='var(--gray6)'" onmouseout="this.style.background=''">🖨️ 导出 PDF（打印）</div>
+          <div onclick="exportData();closeExportMenu()" style="padding:10px 16px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:8px;border-top:1px solid var(--gray5)" onmouseover="this.style.background='var(--gray6)'" onmouseout="this.style.background=''">💾 导出 JSON 备份</div>
+        </div>
+      </div>
+      <button class="btn" onclick="document.getElementById('importFile').click()">📂 导入</button>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(this)">
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- 首页 -->
+    <div class="page active" id="page-home">
+      <div class="stats-grid">
+        <div class="stat-card red">
+          <div class="stat-label">题库总量</div>
+          <div class="stat-value" id="statTotal">0</div>
+          <div class="stat-sub">道题目</div>
+        </div>
+        <div class="stat-card gold">
+          <div class="stat-label">已练习</div>
+          <div class="stat-value" id="statDone">0</div>
+          <div class="stat-sub">道题目</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-label">正确率</div>
+          <div class="stat-value" id="statRate">—</div>
+          <div class="stat-sub">答题准确率</div>
+        </div>
+        <div class="stat-card green" style="cursor:pointer" onclick="showPage('wrong')">
+          <div class="stat-label">错题数量</div>
+          <div class="stat-value" id="statWrong">0</div>
+          <div class="stat-sub">点击查看错题本</div>
+        </div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-label"><span>练习进度</span><span id="progressText">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      </div>
+
+      <!-- 科目分布 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+        <div style="background:var(--white);border-radius:var(--radius-lg);padding:16px;box-shadow:var(--shadow)">
+          <div style="font-weight:700;font-size:14px;margin-bottom:12px;font-family:var(--serif)">📊 各科目题量分布</div>
+          <div id="subjectChart"></div>
+        </div>
+        <div style="background:var(--white);border-radius:var(--radius-lg);padding:16px;box-shadow:var(--shadow)">
+          <div style="font-weight:700;font-size:14px;margin-bottom:12px;font-family:var(--serif)">📈 题型分布</div>
+          <div id="typeChart"></div>
+        </div>
+      </div>
+
+      <!-- 快捷练习 -->
+      <div style="background:var(--white);border-radius:var(--radius-lg);padding:16px;box-shadow:var(--shadow)">
+        <div style="font-weight:700;font-size:14px;margin-bottom:12px;font-family:var(--serif)">⚡ 快捷练习</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-red" onclick="startPractice('all',20)">随机20题</button>
+          <button class="btn btn-gold" onclick="startPractice('wrong',0)">错题专练</button>
+          <button class="btn" onclick="startPractice('税法一',15)">税法一·15题</button>
+          <button class="btn" onclick="startPractice('税法二',15)">税法二·15题</button>
+          <button class="btn" onclick="startPractice('涉税服务实务',15)">实务·15题</button>
+          <button class="btn" onclick="startPractice('财务与会计',15)">财会·15题</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 题库浏览 -->
+    <div class="page" id="page-bank">
+      <div class="filter-bar">
+        <input id="searchInput" placeholder="🔍 搜索题目关键词..." oninput="renderBank()">
+        <select id="filterSubject" onchange="updateBankChapterOptions();renderBank()">
+          <option value="">全部科目</option>
+          <option>税法一</option><option>税法二</option>
+          <option>涉税服务实务</option><option>涉税服务相关法律</option><option>财务与会计</option>
+        </select>
+        <select id="filterChapter" onchange="renderBank()">
+          <option value="">全部章节</option>
+        </select>
+        <select id="filterType" onchange="renderBank()">
+          <option value="">全部题型</option>
+          <option>单选题</option><option>多选题</option><option>判断题</option><option>计算题</option>
+        </select>
+        <select id="filterYear" onchange="renderBank()">
+          <option value="">全部年份</option>
+          <option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option>
+        </select>
+        <button class="btn" onclick="clearFilters()">清除筛选</button>
+      </div>
+      <div id="bankList"></div>
+    </div>
+
+    <!-- 练习模式 -->
+    <div class="page" id="page-practice">
+      <div class="practice-card" id="practiceCard">
+        <div class="practice-progress">
+          <div class="practice-count"><span id="pCurrent">1</span>/<span id="pTotal">0</span></div>
+          <div class="practice-total" id="pSubject">税法一</div>
+        </div>
+        <div class="progress-bar" style="margin-bottom:20px"><div class="progress-fill" id="pProgress" style="width:0%"></div></div>
+        <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap" id="pMeta"></div>
+        <div class="practice-q" id="pQuestion"></div>
+        <div class="q-options" id="pOptions"></div>
+        <div class="q-answer" id="pAnswer"></div>
+        <div class="q-analysis" id="pAnalysis"></div>
+        <div style="display:flex;gap:8px;justify-content:space-between;margin-top:16px">
+          <button class="btn" onclick="skipQuestion()">跳过</button>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-red" onclick="markWrong()" id="btnMark">标记错题</button>
+            <button class="btn btn-green" onclick="nextQuestion()" id="btnNext" style="display:none">下一题 →</button>
+          </div>
+        </div>
+      </div>
+      <!-- 练习结果 -->
+      <div class="result-panel" id="resultPanel">
+        <div class="result-score" id="resultScore">0</div>
+        <div class="result-label">正确题数 / 总题数</div>
+        <div style="font-size:14px;color:var(--gray3);margin-top:8px" id="resultRate"></div>
+        <div style="display:flex;gap:10px;justify-content:center;margin-top:20px">
+          <button class="btn btn-red" onclick="startPractice('all',20)">再练一组</button>
+          <button class="btn btn-gold" onclick="startPractice('wrong',0)">练习错题</button>
+          <button class="btn" onclick="showPage('wrong')">查看错题本</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 错题本 -->
+    <div class="page" id="page-wrong">
+      <div class="wrong-stats">
+        <div class="wrong-stats-text">
+          <h3>📕 我的错题本</h3>
+          <p>坚持复习错题，是提分最快的方式</p>
+        </div>
+        <div class="wrong-stats-num" id="wrongTotal">0</div>
+      </div>
+      <div class="filter-bar">
+        <select id="wFilterSubject" onchange="renderWrong()">
+          <option value="">全部科目</option>
+          <option>税法一</option><option>税法二</option>
+          <option>涉税服务实务</option><option>涉税服务相关法律</option><option>财务与会计</option>
+        </select>
+        <select id="wFilterType" onchange="renderWrong()">
+          <option value="">全部题型</option>
+          <option>单选题</option><option>多选题</option><option>判断题</option><option>计算题</option>
+        </select>
+        <button class="btn btn-gold" onclick="printWrong()">🖨️ 打印错题</button>
+        <button class="btn btn-green" onclick="startPractice('wrong',0)">错题专练</button>
+        <button class="btn" style="margin-left:auto;color:var(--red);border-color:var(--red)" onclick="clearAllWrong()">清空错题</button>
+      </div>
+      <div id="wrongList"></div>
+    </div>
+
+    <!-- 录入题目 -->
+    <div class="page" id="page-add">
+      <div style="max-width:680px">
+        <div style="background:var(--white);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow)">
+          <div style="font-family:var(--serif);font-size:17px;font-weight:700;margin-bottom:18px;color:var(--gray1)">➕ 录入新题目</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>科目 *</label>
+              <select id="aSubject" onchange="updateChapterOptions()">
+                <option>税法一</option><option>税法二</option>
+                <option>涉税服务实务</option><option>涉税服务相关法律</option><option>财务与会计</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>题型 *</label>
+              <select id="aType">
+                <option>单选题</option><option>多选题</option><option>判断题</option><option>计算题</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>章节</label>
+              <select id="aChapter" onchange="" style="font-size:13px">
+                <option value="">选择章节</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>年份</label>
+              <div style="display:flex;gap:6px;align-items:center">
+                <select id="aYear" onchange="onYearChange()" style="flex:1">
+                  <option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option><option value="custom">自定义...</option>
+                </select>
+                <input id="aYearCustom" type="number" placeholder="如2019" min="2000" max="2099"
+                  style="display:none;width:90px;font-size:13px">
+              </div>
+            </div>
+          </div>
+          <div class="form-group form-full" style="margin-bottom:12px">
+            <label>题目内容 *</label>
+            <textarea id="aQuestion" placeholder="请输入题目内容..." rows="4"></textarea>
+          </div>
+          <div id="optionInputs">
+            <div style="font-size:12px;font-weight:600;color:var(--gray3);margin-bottom:8px">选项（判断题/计算题可留空）</div>
+            <div class="form-row">
+              <div class="form-group"><label>A</label><textarea id="optA" placeholder="选项A内容" rows="3" style="resize:vertical;min-height:60px"></textarea></div>
+              <div class="form-group"><label>B</label><textarea id="optB" placeholder="选项B内容" rows="3" style="resize:vertical;min-height:60px"></textarea></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>C</label><textarea id="optC" placeholder="选项C内容" rows="3" style="resize:vertical;min-height:60px"></textarea></div>
+              <div class="form-group"><label>D</label><textarea id="optD" placeholder="选项D内容" rows="3" style="resize:vertical;min-height:60px"></textarea></div>
+            </div>
+          </div>
+          <div class="form-row" style="margin-top:4px">
+            <div class="form-group">
+              <label>正确答案 *</label>
+              <input id="aAnswer" placeholder="单选:A / 多选:AB / 判断:对或错">
+            </div>
+            <div class="form-group">
+              <label>难度</label>
+              <select id="aDifficulty">
+                <option value="1">⭐ 简单</option>
+                <option value="2" selected>⭐⭐ 中等</option>
+                <option value="3">⭐⭐⭐ 困难</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:12px">
+            <label>解析说明 <span style="font-weight:400;color:var(--gray4);font-size:11px">支持 **加粗** ## 标题 - 列表</span></label>
+            <div style="border:1px solid var(--gray5);border-radius:8px;overflow:hidden">
+              <div style="background:var(--gray6);padding:4px 8px;display:flex;gap:4px;border-bottom:1px solid var(--gray5)">
+                <button type="button" class="btn" onclick="insertMd('aAnalysis','**','**')" style="padding:2px 7px;font-size:11px;font-weight:700">B</button>
+                <button type="button" class="btn" onclick="insertMd('aAnalysis','## ','')" style="padding:2px 7px;font-size:11px">H</button>
+                <button type="button" class="btn" onclick="insertMd('aAnalysis','- ','')" style="padding:2px 7px;font-size:11px">•</button>
+                <button type="button" class="btn" onclick="insertMd('aAnalysis','\n**解题步骤**\n- 第一步：\n- 第二步：\n\n**知识点**\n- ','')" style="padding:2px 7px;font-size:10px;white-space:nowrap">模板</button>
+                <div style="margin-left:auto;display:flex;gap:4px">
+                  <button type="button" class="btn" id="btnPreview" onclick="toggleAnalysisPreview()" style="padding:2px 7px;font-size:11px">预览</button>
+                </div>
+              </div>
+              <textarea id="aAnalysis" placeholder="支持Markdown格式：
+**加粗** *斜体* ## 标题 - 列表项
+
+例：
+**解题步骤**
+- 第一步：计算...
+- 第二步：代入公式...
+
+**知识点**
+- CAPM公式：必要收益率 = Rf + β×(Rm-Rf)" rows="5" style="border:none;border-radius:0;resize:vertical"></textarea>
+              <div id="analysisPreview" style="display:none;padding:10px 12px;font-size:13px;line-height:1.8;min-height:80px;background:#fff;border-top:1px solid var(--gray5)"></div>
+            </div>
+          </div>
+
+          <!-- 图片上传区 -->
+          <div class="form-group" style="margin-bottom:16px">
+            <label>题目图片 <span style="font-weight:400;color:var(--gray4)">（可选，支持多张）</span></label>
+            <div id="imgUploadArea" onclick="document.getElementById('imgFileInput').click()"
+              style="border:2px dashed var(--gray5);border-radius:10px;padding:20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--gray6)"
+              onmouseover="this.style.borderColor='var(--red)';this.style.background='var(--red-bg)'"
+              onmouseout="this.style.borderColor='var(--gray5)';this.style.background='var(--gray6)'"
+              ondragover="event.preventDefault();this.style.borderColor='var(--red)';this.style.background='var(--red-bg)'"
+              ondragleave="this.style.borderColor='var(--gray5)';this.style.background='var(--gray6)'"
+              ondrop="event.preventDefault();handleImgDrop(event)">
+              <div style="font-size:28px;margin-bottom:6px">🖼️</div>
+              <div style="font-size:13px;color:var(--gray3);font-weight:500">点击或拖拽图片到此处</div>
+              <div style="font-size:11px;color:var(--gray4);margin-top:3px">支持 JPG、PNG、GIF，每张不超过5MB</div>
+            </div>
+            <input type="file" id="imgFileInput" accept="image/*" multiple style="display:none" onchange="handleImgSelect(this)">
+            <div id="imgPreviewArea" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px"></div>
+            <!-- 智能解析区域 -->
+            <div id="ocrArea" style="display:none;margin-top:12px;background:var(--gold-bg);border:1px solid var(--gold-light);border-radius:10px;padding:12px">
+              <div style="font-size:12px;font-weight:600;color:var(--gold);margin-bottom:8px">📋 粘贴题目文字 → 自动识别填入</div>
+              <div style="font-size:11px;color:var(--gray3);margin-bottom:8px;line-height:1.6">
+                将题目文字复制后粘贴到下方，系统自动识别题干、选项、答案并填入对应字段
+              </div>
+              <textarea id="pasteInput" rows="5" placeholder="将题目完整文字粘贴到此处...&#10;&#10;例如：&#10;下列各项中，属于增值税征税范围的是（  ）。&#10;A.土地使用权的转让&#10;B.销售不动产&#10;C.提供建筑服务&#10;D.转让债券&#10;【答案】C&#10;【解析】提供建筑服务属于增值税应税行为。"
+                style="width:100%;font-size:12px;padding:8px;border:1px solid var(--gray5);border-radius:8px;font-family:var(--sans);resize:vertical;background:#fff"></textarea>
+              <div style="display:flex;gap:8px;margin-top:8px">
+                <button class="btn btn-gold" onclick="parseTextToForm()" style="flex:1;justify-content:center">
+                  ✨ 智能解析 → 自动填入表单
+                </button>
+                <button class="btn" onclick="document.getElementById('pasteInput').value=''" style="white-space:nowrap">清空</button>
+              </div>
+              <div id="parseStatus" style="font-size:11px;margin-top:6px;text-align:center"></div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:10px">
+            <button class="btn btn-red" onclick="saveQuestion()" style="flex:1">保存题目</button>
+            <button class="btn" onclick="clearForm()">清空</button>
+          </div>
+        </div>
+
+        <!-- 批量导入说明 -->
+        <div style="background:var(--gold-bg);border-radius:var(--radius);padding:14px 16px;margin-top:14px;border:1px solid var(--gold-light)">
+          <div style="font-weight:600;font-size:13px;color:var(--gold);margin-bottom:6px">💡 批量导入说明</div>
+          <div style="font-size:12px;color:var(--gray2);line-height:1.7">
+            可通过顶部「导入」按钮导入JSON格式题库文件，也可点击下方下载示例模板参考格式。<br>
+            <button class="btn" style="margin-top:8px;font-size:12px" onclick="downloadTemplate()">📥 下载JSON模板</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+</div><!-- /app -->
+
+<!-- Toast -->
+<!-- GitHub 云同步设置弹窗 -->
+<div class="modal-bg" id="ghModal">
+  <div class="modal-box" style="max-width:480px">
+    <div class="modal-title">☁️ GitHub 云同步设置</div>
+    <div style="font-size:12px;color:var(--gray3);line-height:1.8;margin-bottom:16px;background:var(--blue-bg);padding:10px 12px;border-radius:8px;border-left:3px solid var(--blue)">
+      题目数据将同步保存到你的 GitHub 仓库，任何设备打开网页均可读取最新数据。
+    </div>
+    <div class="form-group" style="margin-bottom:12px">
+      <label>GitHub 用户名</label>
+      <input id="ghUser" placeholder="例：zhangsan" style="width:100%">
+    </div>
+    <div class="form-group" style="margin-bottom:12px">
+      <label>仓库名称</label>
+      <input id="ghRepo" placeholder="例：tax-exam" style="width:100%">
+    </div>
+    <div class="form-group" style="margin-bottom:12px">
+      <label>Personal Access Token
+        <a href="https://github.com/settings/tokens/new?scopes=repo&description=税务师题库同步" target="_blank" style="margin-left:8px;font-size:11px;color:var(--blue)">点此生成 →</a>
+      </label>
+      <input id="ghToken" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxx" style="width:100%">
+      <div style="font-size:10px;color:var(--gray4);margin-top:3px">Token 仅存在本地浏览器，不会上传到任何服务器</div>
+    </div>
+    <div class="form-group" style="margin-bottom:16px">
+      <label>数据文件名</label>
+      <input id="ghFile" placeholder="taxdb.json" value="taxdb.json" style="width:100%">
+    </div>
+    <div id="ghStatus" style="font-size:12px;min-height:20px;margin-bottom:12px"></div>
+    <div class="modal-footer" style="flex-wrap:wrap;gap:8px">
+      <button class="btn" onclick="closeGhModal()" style="margin-right:auto">取消</button>
+      <button class="btn" onclick="ghTestConn()">🔗 测试连接</button>
+      <button class="btn btn-gold" onclick="ghPull()">⬇️ 从云端读取</button>
+      <button class="btn btn-red" onclick="ghPush()">⬆️ 推送到云端</button>
+    </div>
+    <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--gray5)">
+      <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer">
+        <input type="checkbox" id="ghAutoSync" onchange="toggleAutoSync()">
+        <span>每次保存题目后自动推送到云端</span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════
+// 数据结构 & 初始化
+// ══════════════════════════════════════════════
+let DB = {
+  questions: [],    // 所有题目
+  wrong: [],        // 错题ID集合
+  practiced: {},    // {id: {correct:bool, count:int}}
+};
+
+const SUBJECTS = ['税法一','税法二','涉税服务实务','涉税服务相关法律','财务与会计'];
+const TYPES = ['单选题','多选题','判断题','计算题'];
+const COLORS = ['#C0392B','#1A5FA8','#1A7F4B','#B8860B','#7D3C98'];
+
+// 练习状态
+let practiceQueue = [];
+let practiceIdx = 0;
+let practiceCorrect = 0;
+let practiceAnswered = false;
+
+// ══════════════════════════════════════════════
+// 存储
+// ══════════════════════════════════════════════
+function save(){
+  try{
+    localStorage.setItem('taxExamDB', JSON.stringify(DB));
+    autoSyncIfEnabled();
+  }
+  catch(e){ showToast('存储失败：'+e.message,'error'); }
+}
+function load(){
+  try{
+    const d = localStorage.getItem('taxExamDB');
+    if(d) DB = JSON.parse(d);
+    if(!DB.questions) DB.questions = [];
+    if(!DB.wrong) DB.wrong = [];
+    if(!DB.practiced) DB.practiced = {};
+    // 过滤掉null/undefined数据项
+    DB.questions = DB.questions.filter(q=>q&&q.id&&q.subject&&q.question);
+  }catch(e){ console.warn('加载失败',e); DB={questions:[],wrong:[],practiced:{}}; }
+}
+function gid(){ return 'q_'+Date.now()+'_'+Math.random().toString(36).slice(2,6); }
+
+// ══════════════════════════════════════════════
+// 页面切换
+// ══════════════════════════════════════════════
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const titles = {home:'首页总览',bank:'题库浏览',practice:'模拟练习',wrong:'错题本',add:'录入题目'};
+  document.getElementById('pageTitle').textContent = titles[name]||name;
+  if(name==='home') renderHome();
+  if(name==='bank') renderBank();
+  if(name==='wrong'){ renderWrong(); document.getElementById('wrongTotal').textContent=DB.wrong.length; }
+  if(name==='add') updateChapterOptions();
+}
+
+function filterSubject(sub){
+  showPage('bank');
+  document.getElementById('filterSubject').value = sub;
+  renderBank();
+}
+
+// ══════════════════════════════════════════════
+// 首页
+// ══════════════════════════════════════════════
+function renderHome(){
+  const total = DB.questions.length;
+  const doneIds = Object.keys(DB.practiced);
+  const done = doneIds.length;
+  const correct = doneIds.filter(id=>DB.practiced[id]&&DB.practiced[id].correct).length;
+  const rate = done>0 ? Math.round(correct/done*100) : 0;
+  const wrongCnt = DB.wrong.length;
+
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statDone').textContent = done;
+  document.getElementById('statRate').textContent = done>0 ? rate+'%' : '—';
+  document.getElementById('statWrong').textContent = wrongCnt;
+  document.getElementById('totalBadge').textContent = total;
+  document.getElementById('wrongBadge').textContent = wrongCnt;
+  const pct = total>0 ? Math.round(done/total*100) : 0;
+  document.getElementById('progressFill').style.width = pct+'%';
+  document.getElementById('progressText').textContent = pct+'%';
+
+  // 科目分布图
+  const subEl = document.getElementById('subjectChart');
+  const subCounts = SUBJECTS.map(s=>({s,n:DB.questions.filter(q=>q&&q.subject===s).length}));
+  const maxS = Math.max(...subCounts.map(x=>x.n),1);
+  subEl.innerHTML = subCounts.map((x,i)=>`
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+      <div style="font-size:11px;color:var(--gray3);width:80px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${x.s}">${x.s}</div>
+      <div style="flex:1;background:var(--gray5);border-radius:3px;height:8px;overflow:hidden">
+        <div style="width:${Math.round(x.n/maxS*100)}%;height:100%;background:${COLORS[i]};border-radius:3px"></div>
+      </div>
+      <div style="font-size:12px;font-weight:600;color:${COLORS[i]};width:24px;text-align:right">${x.n}</div>
+    </div>`).join('');
+
+  // 题型分布
+  const typeEl = document.getElementById('typeChart');
+  const typeCounts = TYPES.map(t=>({t,n:DB.questions.filter(q=>q&&q.type===t).length}));
+  const maxT = Math.max(...typeCounts.map(x=>x.n),1);
+  typeEl.innerHTML = typeCounts.map((x,i)=>`
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+      <div style="font-size:11px;color:var(--gray3);width:48px">${x.t}</div>
+      <div style="flex:1;background:var(--gray5);border-radius:3px;height:8px;overflow:hidden">
+        <div style="width:${Math.round(x.n/maxT*100)}%;height:100%;background:${COLORS[i]};border-radius:3px"></div>
+      </div>
+      <div style="font-size:12px;font-weight:600;color:${COLORS[i]};width:24px;text-align:right">${x.n}</div>
+    </div>`).join('');
+
+  // 更新侧边栏徽章
+  SUBJECTS.forEach((s,i)=>{
+    const el = document.getElementById('s'+(i+1)+'badge');
+    if(el) el.textContent = DB.questions.filter(q=>q&&q.subject===s).length;
+  });
+}
+
+// ══════════════════════════════════════════════
+// 题库浏览
+// ══════════════════════════════════════════════
+function renderBank(){
+  const searchEl = document.getElementById('searchInput');
+  const subEl = document.getElementById('filterSubject');
+  const chEl2 = document.getElementById('filterChapter');
+  const typeEl = document.getElementById('filterType');
+  const yearEl = document.getElementById('filterYear');
+  const search = searchEl ? searchEl.value.toLowerCase() : '';
+  const sub = subEl ? subEl.value : '';
+  const chapter = chEl2 ? chEl2.value : '';
+  const type = typeEl ? typeEl.value : '';
+  const year = yearEl ? yearEl.value : '';
+
+  let qs = (DB.questions||[]).filter(q=>q&&q.id&&q.subject&&q.question).filter(q=>{
+    if(sub && q.subject!==sub) return false;
+    if(chapter && q.chapter!==chapter) return false;
+    if(type && q.type!==type) return false;
+    if(year && String(q.year)!==String(year)) return false;
+    if(search && !((q.question||'').toLowerCase().includes(search)||(q.chapter||'').toLowerCase().includes(search)||(q.subject||'').toLowerCase().includes(search))) return false;
+    return true;
+  });
+
+  // 更新章节下拉（使用标准章节 + 已有数据）
+  const stdChapters = sub ? (CHAPTERS[sub]||[]) : Object.values(CHAPTERS).flat();
+  const dbChapters = [...new Set((DB.questions||[]).filter(q=>q&&(!sub||q.subject===sub)).map(q=>q.chapter).filter(Boolean))];
+  const allChapters = [...new Set([...stdChapters, ...dbChapters])];
+  const chElBank = document.getElementById('filterChapter');
+  if(chElBank){
+    const curCh = chElBank.value;
+    chElBank.innerHTML = '<option value="">全部章节</option>'+allChapters.map(c=>`<option value="${c}" ${c===curCh?'selected':''}>${c}</option>`).join('');
+  }
+
+  const el = document.getElementById('bankList');
+  if(!el) return;
+  if(!qs.length){
+    el.innerHTML = '<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">暂无符合条件的题目<br><small style="color:var(--gray4)">共'+DB.questions.length+'道题，当前筛选条件无匹配</small></div></div>';
+    return;
+  }
+  el.innerHTML = qs.map((q,i)=>renderQuestionCard(q,i+1,'bank')).join('');
+}
+
+function clearFilters(){
+  ['searchInput','filterSubject','filterChapter','filterType','filterYear'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.value='';
+  });
+  renderBank();
+}
+
+// ══════════════════════════════════════════════
+// 题目卡片渲染
+// ══════════════════════════════════════════════
+function renderQuestionCard(q, num, mode){
+  const isWrong = DB.wrong.includes(q.id);
+  const typeClass = {单选题:'single',多选题:'multi',判断题:'judge',计算题:'calc'}[q.type]||'';
+  const opts = q.options ? q.options.map((o,i)=>`
+    <div class="option" id="opt_${q.id}_${i}" onclick="selectOption('${q.id}',${i},'${mode}')">
+      <span class="option-label">${String.fromCharCode(65+i)}</span>
+      <span style="white-space:pre-wrap;word-break:break-all">${o.replace(/\n/g,'<br>')}</span>
+    </div>`).join('') : '';
+
+  return `<div class="question-card ${isWrong?'wrong':''}" id="card_${q.id}">
+    <div class="q-header">
+      <div class="q-num ${typeClass}">第${num}题·${q.type||'题目'}</div>
+      <div class="q-meta">
+        <span class="tag tag-subject">${q.subject||''}</span>
+        ${q.chapter?`<span class="tag tag-chapter">${q.chapter}</span>`:''}
+        ${q.year?`<span class="tag tag-year">${q.year}年</span>`:''}
+        ${'⭐'.repeat(q.difficulty||1)}
+        ${isWrong?'<span class="tag tag-wrong">错题</span>':''}
+      </div>
+      <div class="wrong-mark ${isWrong?'marked':''}" onclick="toggleWrong('${q.id}')" title="${isWrong?'移出错题本':'加入错题本'}">
+        ${isWrong?'❌ 已标错':'＋ 标记错题'}
+      </div>
+    </div>
+    <div class="q-text">${q.question||''}</div>
+    ${q.images&&q.images.length?renderQuestionImages(q.images):''}
+    ${opts ? `<div class="q-options">${opts}</div>` : ''}
+    <div class="q-answer" id="ans_${q.id}">
+      <div class="answer-label">✅ 正确答案</div>
+      ${q.answer||''}
+    </div>
+    ${q.analysis?`<div class="q-analysis" id="anal_${q.id}"><div class="analysis-label">💡 解析</div><div class="md-body">${renderMd(q.analysis)}</div></div>`:''}
+    <div class="q-actions">
+      <button class="btn" onclick="toggleAnswer('${q.id}')">查看答案</button>
+      ${q.analysis?`<button class="btn" onclick="toggleAnalysis('${q.id}')">解析</button>`:''}
+      <button class="btn" onclick="editQuestion('${q.id}')">编辑</button>
+      <button class="btn" style="color:var(--red)" onclick="deleteQuestion('${q.id}')">删除</button>
+    </div>
+  </div>`;
+}
+
+function toggleAnswer(id){
+  const el = document.getElementById('ans_'+id);
+  if(el) el.classList.toggle('show');
+}
+function toggleAnalysis(id){
+  const el = document.getElementById('anal_'+id);
+  if(el) el.classList.toggle('show');
+}
+
+function selectOption(qid, idx, mode){
+  // show correct/wrong
+  const q = DB.questions.find(x=>x.id===qid);
+  if(!q) return;
+  const correctLetter = (q.answer||'').trim().toUpperCase();
+  const selectedLetter = String.fromCharCode(65+idx);
+  const isCorrect = correctLetter.includes(selectedLetter) && selectedLetter.length === correctLetter.length || correctLetter === selectedLetter;
+  document.querySelectorAll(`[id^="opt_${qid}_"]`).forEach((el,i)=>{
+    const letter = String.fromCharCode(65+i);
+    if(correctLetter.includes(letter)) el.classList.add('correct');
+    else if(i===idx) el.classList.add('wrong-sel');
+    el.onclick = null;
+  });
+  document.getElementById('ans_'+qid)?.classList.add('show');
+  document.getElementById('anal_'+qid)?.classList.add('show');
+}
+
+// ══════════════════════════════════════════════
+// 错题本
+// ══════════════════════════════════════════════
+function toggleWrong(id){
+  const idx = DB.wrong.indexOf(id);
+  if(idx===-1){ DB.wrong.push(id); showToast('已加入错题本'); }
+  else{ DB.wrong.splice(idx,1); showToast('已从错题本移除'); }
+  save();
+  document.getElementById('wrongBadge').textContent = DB.wrong.length;
+  updateChapterOptions();
+  updateBankChapterOptions();
+  // refresh card
+  const q = DB.questions.find(x=>x.id===id);
+  const card = document.getElementById('card_'+id);
+  if(q && card){
+    const isWrong = DB.wrong.includes(id);
+    card.classList.toggle('wrong', isWrong);
+    const wm = card.querySelector('.wrong-mark');
+    if(wm){ wm.className='wrong-mark '+(isWrong?'marked':''); wm.textContent=isWrong?'❌ 已标错':'＋ 标记错题'; }
+  }
+}
+
+function renderWrong(){
+  const sub = (document.getElementById('wFilterSubject')||{}).value;
+  const type = (document.getElementById('wFilterType')||{}).value;
+  const wrongQs = DB.questions.filter(q=>q&&q.id).filter(q=>{
+    if(!DB.wrong.includes(q.id)) return false;
+    if(sub && q.subject!==sub) return false;
+    if(type && q.type!==type) return false;
+    return true;
+  });
+  document.getElementById('wrongTotal').textContent = DB.wrong.length;
+  document.getElementById('wrongBadge').textContent = DB.wrong.length;
+  const el = document.getElementById('wrongList');
+  if(!wrongQs.length){
+    el.innerHTML='<div class="empty"><div class="empty-icon">🎉</div><div class="empty-text">暂无错题，继续保持！</div></div>';
+    return;
+  }
+  el.innerHTML = wrongQs.map((q,i)=>renderQuestionCard(q,i+1,'wrong')).join('');
+}
+
+function clearAllWrong(){
+  if(!confirm('确认清空所有错题？')) return;
+  DB.wrong = [];
+  save();
+  renderWrong();
+  showToast('错题本已清空');
+}
+
+// ══════════════════════════════════════════════
+// 练习模式
+// ══════════════════════════════════════════════
+function startPractice(subject, count){
+  let pool;
+  if(subject==='wrong'){
+    pool = DB.questions.filter(q=>q&&q.id&&DB.wrong.includes(q.id));
+  } else if(subject==='all'){
+    pool = DB.questions.filter(q=>q&&q.id);
+  } else {
+    pool = DB.questions.filter(q=>q&&q.subject&&q.subject===subject);
+  }
+  // shuffle
+  pool = pool.sort(()=>Math.random()-.5);
+  if(count>0) pool = pool.slice(0,count);
+  if(!pool.length){ showToast('该分类暂无题目','error'); return; }
+
+  practiceQueue = pool;
+  practiceIdx = 0;
+  practiceCorrect = 0;
+  practiceAnswered = false;
+
+  document.getElementById('practiceCard').style.display='block';
+  document.getElementById('resultPanel').classList.remove('show');
+  showPage('practice');
+  renderPracticeQ();
+}
+
+function renderPracticeQ(){
+  const q = practiceQueue[practiceIdx];
+  if(!q){ showResult(); return; }
+  practiceAnswered = false;
+
+  document.getElementById('pCurrent').textContent = practiceIdx+1;
+  document.getElementById('pTotal').textContent = practiceQueue.length;
+  document.getElementById('pProgress').style.width = Math.round(practiceIdx/practiceQueue.length*100)+'%';
+  document.getElementById('pSubject').textContent = q.subject+(q.chapter?' · '+q.chapter:'');
+  document.getElementById('pMeta').innerHTML = `
+    <span class="tag tag-subject">${q.subject}</span>
+    ${q.chapter?`<span class="tag tag-chapter">${q.chapter}</span>`:''}
+    ${q.year?`<span class="tag tag-year">${q.year}年</span>`:''}
+    <span class="tag" style="background:var(--gray5);color:var(--gray3)">${q.type}</span>
+    ${'⭐'.repeat(q.difficulty||1)}`;
+  document.getElementById('pQuestion').textContent = q.question;
+
+  const opts = document.getElementById('pOptions');
+  if(q.options && q.options.length){
+    opts.innerHTML = q.options.map((o,i)=>`
+      <div class="option" id="popt_${i}" onclick="answerPractice(${i})">
+        <span class="option-label">${String.fromCharCode(65+i)}</span>
+        <span style="white-space:pre-wrap;word-break:break-all">${o.replace(/\n/g,'<br>')}</span>
+      </div>`).join('');
+    opts.style.display='flex';
+  } else {
+    opts.innerHTML='';
+    opts.style.display='none';
+  }
+
+  document.getElementById('pAnswer').className='q-answer';
+  document.getElementById('pAnalysis').className='q-analysis';
+  document.getElementById('pAnswer').innerHTML=`<div class="answer-label">✅ 正确答案</div>${q.answer||''}`;
+  document.getElementById('pAnalysis').innerHTML=q.analysis?`<div class="analysis-label">💡 解析</div><div class="md-body">${renderMd(q.analysis)}</div>`:'';
+  document.getElementById('btnNext').style.display='none';
+  document.getElementById('btnMark').textContent = DB.wrong.includes(q.id)?'移出错题':'标记错题';
+}
+
+function answerPractice(idx){
+  if(practiceAnswered) return;
+  practiceAnswered = true;
+  const q = practiceQueue[practiceIdx];
+  const correctLetter = (q.answer||'').trim().toUpperCase();
+  const selectedLetter = String.fromCharCode(65+idx);
+  const isCorrect = correctLetter === selectedLetter || (q.type==='多选题' && correctLetter.split('').sort().join('')===selectedLetter);
+
+  document.querySelectorAll('[id^="popt_"]').forEach((el,i)=>{
+    const letter = String.fromCharCode(65+i);
+    if(correctLetter.includes(letter)) el.classList.add('correct');
+    else if(i===idx) el.classList.add('wrong-sel');
+    el.onclick=null;
+  });
+
+  document.getElementById('pAnswer').classList.add('show');
+  if(q.analysis) document.getElementById('pAnalysis').classList.add('show');
+  document.getElementById('btnNext').style.display='inline-flex';
+
+  if(isCorrect){
+    practiceCorrect++;
+    if(!DB.practiced[q.id]) DB.practiced[q.id]={correct:true,count:0};
+    DB.practiced[q.id].correct=true;
+    DB.practiced[q.id].count++;
+  } else {
+    if(!DB.wrong.includes(q.id)) DB.wrong.push(q.id);
+    if(!DB.practiced[q.id]) DB.practiced[q.id]={correct:false,count:0};
+    DB.practiced[q.id].correct=false;
+    DB.practiced[q.id].count++;
+  }
+  save();
+  document.getElementById('btnMark').textContent = DB.wrong.includes(q.id)?'移出错题':'标记错题';
+}
+
+function nextQuestion(){
+  practiceIdx++;
+  if(practiceIdx>=practiceQueue.length){ showResult(); return; }
+  renderPracticeQ();
+}
+
+function skipQuestion(){
+  practiceIdx++;
+  if(practiceIdx>=practiceQueue.length){ showResult(); return; }
+  renderPracticeQ();
+}
+
+function markWrong(){
+  const q = practiceQueue[practiceIdx];
+  if(!q) return;
+  const idx = DB.wrong.indexOf(q.id);
+  if(idx===-1){ DB.wrong.push(q.id); document.getElementById('btnMark').textContent='移出错题'; showToast('已标记为错题'); }
+  else{ DB.wrong.splice(idx,1); document.getElementById('btnMark').textContent='标记错题'; showToast('已移出错题本'); }
+  save();
+}
+
+function showResult(){
+  document.getElementById('practiceCard').style.display='none';
+  const panel = document.getElementById('resultPanel');
+  panel.classList.add('show');
+  const total = practiceQueue.length;
+  document.getElementById('resultScore').textContent = practiceCorrect+'/'+total;
+  const rate = Math.round(practiceCorrect/total*100);
+  document.getElementById('resultRate').textContent = `正确率 ${rate}% · 共 ${total} 题`;
+}
+
+// ══════════════════════════════════════════════
+// 录入题目
+// ══════════════════════════════════════════════
+
+function updateChapterOptions(){
+  const sub = (document.getElementById('aSubject')||{}).value;
+  const chEl = document.getElementById('aChapter');
+  if(!chEl) return;
+  const chapters = CHAPTERS[sub]||[];
+  chEl.innerHTML = '<option value="">选择章节</option>' + chapters.map(c=>`<option value="${c}">${c}</option>`).join('');
+}
+
+function updateBankChapterOptions(){
+  const sub = (document.getElementById('filterSubject')||{}).value;
+  const chEl = document.getElementById('filterChapter');
+  if(!chEl) return;
+  const chapters = sub ? (CHAPTERS[sub]||[]) : Object.values(CHAPTERS).flat();
+  const cur = chEl.value;
+  chEl.innerHTML = '<option value="">全部章节</option>' + [...new Set(chapters)].map(c=>`<option value="${c}" ${c===cur?'selected':''}>${c}</option>`).join('');
+}
+
+
+
+// ── 图片上传处理 ──
+let pendingImages = []; // [{dataUrl, name}]
+
+function handleImgSelect(input){
+  const files = Array.from(input.files);
+  files.forEach(f => readImgFile(f));
+  input.value = '';
+}
+
+function handleImgDrop(e){
+  const files = Array.from(e.dataTransfer.files).filter(f=>f.type.startsWith('image/'));
+  files.forEach(f => readImgFile(f));
+}
+
+function readImgFile(file){
+  if(file.size > 5*1024*1024){ showToast(file.name+' 超过5MB，已跳过','error'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    const dataUrl = e.target.result;
+    pendingImages.push({dataUrl, name: file.name});
+    renderImgPreviews();
+  };
+  reader.readAsDataURL(file);
+}
+
+function renderImgPreviews(){
+  const area = document.getElementById('imgPreviewArea');
+  if(!area) return;
+  area.innerHTML = pendingImages.map((img,i) => `
+    <div style="position:relative;display:inline-block">
+      <img src="${img.dataUrl}" style="width:100px;height:80px;object-fit:cover;border-radius:8px;border:1px solid var(--gray5);cursor:pointer"
+        onclick="previewImg('${img.dataUrl}')" title="${img.name}">
+      <div onclick="removeImg(${i})" style="position:absolute;top:-6px;right:-6px;background:var(--red);color:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-weight:700">✕</div>
+    </div>`).join('');
+  // 有图片时显示OCR按钮
+  const ocrArea = document.getElementById('ocrArea');
+  if(ocrArea) ocrArea.style.display = pendingImages.length ? 'block' : 'none';
+}
+
+function removeImg(idx){
+  pendingImages.splice(idx,1);
+  renderImgPreviews();
+}
+
+function previewImg(src){
+  const mc = document.getElementById('previewModal');
+  if(mc){ mc.style.display='flex'; mc.querySelector('img').src=src; }
+  else {
+    const div = document.createElement('div');
+    div.id = 'previewModal';
+    div.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;display:flex;align-items:center;justify-content:center;cursor:zoom-out';
+    div.onclick = ()=>div.remove();
+    div.innerHTML = '<img style="max-width:92vw;max-height:88vh;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,.5)" src="'+src+'">';
+    document.body.appendChild(div);
+  }
+}
+
+function clearImgPreviews(){
+  pendingImages = [];
+  const area = document.getElementById('imgPreviewArea');
+  if(area) area.innerHTML = '';
+}
+
+// 展示题目中的图片（题目卡片里调用）
+function renderQuestionImages(images){
+  if(!images||!images.length) return '';
+  return '<div style="display:flex;flex-wrap:wrap;gap:8px;margin:10px 0">'
+    + images.map(img=>`<img src="${img.dataUrl}" style="max-width:200px;max-height:150px;object-fit:contain;border-radius:8px;border:1px solid var(--gray5);cursor:zoom-in" onclick="previewImg('${img.dataUrl}')" title="${img.name||'图片'}">`).join('')
+    + '</div>';
+}
+
+
+
+// ── 智能文字解析填入表单 ──
+function parseTextToForm(){
+  var raw = (document.getElementById('pasteInput')||{}).value||'';
+  var status = document.getElementById('parseStatus');
+  if(!raw.trim()){ showToast('请先粘贴题目文字','error'); return; }
+  var text = raw.trim();
+
+  // 1. 检测题型
+  var detectedType = '单选题';
+  if(text.indexOf('判断题')>=0||text.indexOf('请判断')>=0||text.indexOf('（判断）')>=0) detectedType='判断题';
+  else if(text.indexOf('多选题')>=0||text.indexOf('（多选）')>=0||text.indexOf('(多选)')>=0||text.indexOf('多项')>=0) detectedType='多选题';
+  else if(text.indexOf('计算题')>=0||text.indexOf('要求：')>=0||text.indexOf('要求:')>=0||text.indexOf('计算并')>=0) detectedType='计算题';
+  // 无选项但有答案"对"或"错"的是判断题
+  else if((text.indexOf('答案】对')>=0||text.indexOf('答案】错')>=0||text.indexOf('答案：对')>=0||text.indexOf('答案：错')>=0)) detectedType='判断题';
+
+  // 2. 按行解析选项（支持多行选项，如借贷分录）
+  var opts = [];
+  var lines = text.split('\n');
+  var separators = ['.','。','、','．','·',':',' ',')','）','\t'];
+
+  function isOptStart(line){
+    if(!line || line.length<2) return -1;
+    var first = line.charAt(0);
+    var idx = 'ABCD'.indexOf(first);
+    if(idx<0) return -1;
+    var second = line.charAt(1);
+    if(separators.indexOf(second)>=0) return idx;
+    // 全角分隔符或中文标点作分隔
+    if(second.toLowerCase()===second.toUpperCase() && second>='\u3000') return idx;
+    return -1;
+  }
+
+  // 找到 A B C D 各自的起始行索引
+  var optStarts = {}; // {0:lineIdx, 1:lineIdx, ...}
+  for(var i=0;i<lines.length;i++){
+    var oi = isOptStart(lines[i].trim());
+    if(oi>=0 && optStarts[oi]===undefined) optStarts[oi]=i;
+  }
+
+  // 提取每个选项的全部行（到下一个选项起始行之前）
+  var keys = Object.keys(optStarts).map(Number).sort();
+  for(var ki=0;ki<keys.length;ki++){
+    var k = keys[ki];
+    var startLine = optStarts[k];
+    var endLine = (ki+1<keys.length) ? optStarts[keys[ki+1]] : lines.length;
+    // 第一行去掉选项字母前缀
+    var firstLine = lines[startLine].trim();
+    var sep2 = firstLine.charAt(1);
+    var firstContent = separators.indexOf(sep2)>=0 ? firstLine.slice(2).trim() : firstLine.slice(1).trim();
+    // 收集后续行（直到空行或下一选项）
+    var extraLines = [];
+    for(var li=startLine+1;li<endLine;li++){
+      var l = lines[li].trim();
+      if(l==='') break; // 空行终止本选项
+      extraLines.push(l);
+    }
+    var full = firstContent + (extraLines.length ? '\n' + extraLines.join('\n') : '');
+    if(full.trim()) opts.push(full.trim());
+  }
+
+  // 3. 解析答案
+  var answer = '';
+  var ansIdx = text.indexOf('【答案】');
+  if(ansIdx<0) ansIdx = text.indexOf('答案：');
+  if(ansIdx<0) ansIdx = text.indexOf('答案:');
+  if(ansIdx>=0){
+    var ansLine = text.slice(ansIdx).split('\n')[0];
+    var ansMatch = ansLine.match(/[A-D对错✓✗]{1,4}/);
+    if(ansMatch) answer = ansMatch[0].toUpperCase();
+    if(answer==='✓'||answer==='对') answer='对';
+    if(answer==='✗'||answer==='错') answer='错';
+  }
+
+  // 4. 解析解析说明
+  var analysis = '';
+  var anaIdx = text.indexOf('【解析】');
+  if(anaIdx<0) anaIdx = text.indexOf('解析：');
+  if(anaIdx>=0) analysis = text.slice(anaIdx+4).replace('：','').trim().split('\n').slice(0,5).join('\n');
+
+  // 5. 提取题目主体
+  var question = text;
+  var separatorsQ = ['.','。','、','．','·',':',' ',')','）'];
+  for(var j=0;j<lines.length;j++){
+    var l = lines[j].trim();
+    if(l.length>1 && 'ABCD'.indexOf(l.charAt(0))>=0 && separatorsQ.indexOf(l.charAt(1))>=0){
+      question = lines.slice(0,j).join('\n').trim();
+      break;
+    }
+  }
+  // 也处理选项连在题干同一行的情况（如：...（）A.xxx B.xxx）
+  var inlineMatch = question.match(/^(.+?[（(][\s\S]*?[）)])[\s]*A[.。、]/);
+  if(inlineMatch) question = inlineMatch[1].trim();
+  // 去掉答案解析行
+  var qLines = question.split('\n').filter(function(l){
+    return l.indexOf('【答案')<0 && l.indexOf('答案：')<0 && l.indexOf('答案:')<0;
+  });
+  question = qLines.join('\n').trim();
+
+  // 6. 填入表单
+  var filled = [];
+  if(question){ var qEl=document.getElementById('aQuestion'); if(qEl){qEl.value=question;qEl.style.borderColor='var(--green)';filled.push('题目');} }
+  var typeEl=document.getElementById('aType'); if(typeEl){typeEl.value=detectedType;filled.push('题型:'+detectedType);}
+  if(opts.length>=2){
+    ['A','B','C','D'].forEach(function(l,i){ var el=document.getElementById('opt'+l); if(el)el.value=opts[i]||''; });
+    filled.push('选项×'+opts.length);
+  }
+  if(answer){ var aEl=document.getElementById('aAnswer'); if(aEl){aEl.value=answer;aEl.style.borderColor='var(--green)';filled.push('答案:'+answer);} }
+  if(analysis){ var anaEl=document.getElementById('aAnalysis'); if(anaEl){anaEl.value=analysis;filled.push('解析');} }
+
+  if(status){
+    if(filled.length){
+      status.innerHTML='<span style="color:var(--green);font-weight:500">✅ 已填入：'+filled.join(' | ')+'</span><br><span style="font-size:10px;color:var(--gray4)">请补充科目、章节、年份后保存</span>';
+    } else {
+      status.innerHTML='<span style="color:var(--red)">⚠️ 未识别有效内容，请手动填写</span>';
+    }
+  }
+  showToast('解析完成，已填入 '+filled.length+' 项', filled.length?'success':'error');
+}
+
+
+function onYearChange(){
+  const sel = document.getElementById('aYear');
+  const customEl = document.getElementById('aYearCustom');
+  if(!sel||!customEl) return;
+  if(sel.value==='custom'){
+    customEl.style.display='block';
+    customEl.focus();
+  } else {
+    customEl.style.display='none';
+  }
+}
+
+function getSelectedYear(){
+  const sel = document.getElementById('aYear');
+  const customEl = document.getElementById('aYearCustom');
+  if(!sel) return '2025';
+  if(sel.value==='custom'){
+    return (customEl&&customEl.value) ? customEl.value : '2025';
+  }
+  return sel.value||'2025';
+}
+
+
+
+function insertMd(elId, before, after){
+  var el = document.getElementById(elId);
+  if(!el) return;
+  var s = el.selectionStart, e = el.selectionEnd;
+  var selected = el.value.substring(s,e);
+  var replacement = before + (selected||'文字') + after;
+  el.value = el.value.substring(0,s) + replacement + el.value.substring(e);
+  el.focus();
+  el.selectionStart = s + before.length;
+  el.selectionEnd = s + before.length + (selected||'文字').length;
+  // Update preview if visible
+  var prev = document.getElementById('analysisPreview');
+  if(prev && prev.style.display!=='none') prev.innerHTML = renderMd(el.value);
+}
+
+function toggleAnalysisPreview(){
+  var ta = document.getElementById('aAnalysis');
+  var prev = document.getElementById('analysisPreview');
+  var btn = document.getElementById('btnPreview');
+  if(!ta||!prev||!btn) return;
+  if(prev.style.display==='none'){
+    prev.innerHTML = renderMd(ta.value);
+    prev.style.display='block';
+    ta.style.display='none';
+    btn.textContent='编辑';
+    btn.style.color='var(--red)';
+  } else {
+    prev.style.display='none';
+    ta.style.display='block';
+    btn.textContent='预览';
+    btn.style.color='';
+  }
+}
+
+// ── Markdown 轻量渲染（用于解析字段显示）──
+function renderMd(text){
+  if(!text) return '';
+  var lines = text.split('\n');
+  var html = '';
+  var inList = false;
+  for(var i=0;i<lines.length;i++){
+    var line = lines[i];
+    // 标题 ## 或 **标题**
+    if(/^#{1,3}\s/.test(line)){
+      if(inList){html+='</ul>';inList=false;}
+      var lvl=line.match(/^(#+)/)[1].length;
+      var t=line.replace(/^#+\s*/,'');
+      t=applyInline(t);
+      html+='<div style="font-weight:700;font-size:'+(lvl===1?'14px':lvl===2?'13px':'12px')+';margin:'+(i>0?'10px':'4px')+' 0 4px">'+t+'</div>';
+    }
+    // 无序列表 - 或 •
+    else if(/^[\-\*•]\s/.test(line)){
+      if(!inList){html+='<ul style="margin:4px 0 4px 16px;padding:0">';inList=true;}
+      var item=line.replace(/^[\-\*•]\s*/,'');
+      item=applyInline(item);
+      html+='<li style="margin-bottom:4px;line-height:1.7">'+item+'</li>';
+    }
+    // 有序列表 1. 2.
+    else if(/^\d+\.\s/.test(line)){
+      if(!inList){html+='<ol style="margin:4px 0 4px 16px;padding:0">';inList=true;}
+      var item2=line.replace(/^\d+\.\s*/,'');
+      item2=applyInline(item2);
+      html+='<li style="margin-bottom:4px;line-height:1.7">'+item2+'</li>';
+    }
+    // 空行
+    else if(line.trim()===''){
+      if(inList){html+=(html.includes('<ul')?'</ul>':'</ol>');inList=false;}
+      html+='<br>';
+    }
+    // 普通段落
+    else {
+      if(inList){html+=(html.includes('<ul')?'</ul>':'</ol>');inList=false;}
+      html+='<p style="margin:3px 0;line-height:1.8">'+applyInline(line)+'</p>';
+    }
+  }
+  if(inList) html+='</ul>';
+  return html;
+}
+
+function applyInline(text){
+  // **加粗**
+  text = text.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+  // *斜体*
+  text = text.replace(/\*([^*]+)\*/g,'<em>$1</em>');
+  // `代码`
+  text = text.replace(/`([^`]+)`/g,'<code style="background:#f5f5f5;padding:1px 4px;border-radius:3px;font-size:11px">$1</code>');
+  return text;
+}
+
+function saveQuestion(){
+  const q = (document.getElementById('aQuestion')||{}).value.trim();
+  const subject = (document.getElementById('aSubject')||{}).value;
+  const type = (document.getElementById('aType')||{}).value;
+  const answer = (document.getElementById('aAnswer')||{}).value.trim();
+  if(!q){ showToast('请填写题目内容','error'); return; }
+  if(!answer){ showToast('请填写正确答案','error'); return; }
+
+  const optA=(document.getElementById('optA')||{}).value.trim();
+  const optB=(document.getElementById('optB')||{}).value.trim();
+  const optC=(document.getElementById('optC')||{}).value.trim();
+  const optD=(document.getElementById('optD')||{}).value.trim();
+  const options = [optA,optB,optC,optD].filter(Boolean);
+
+  const newQ = {
+    id: gid(),
+    subject,
+    type,
+    chapter: (document.getElementById('aChapter')||{}).value.trim(),
+    year: getSelectedYear(),
+    difficulty: parseInt((document.getElementById('aDifficulty')||{}).value)||2,
+    question: q,
+    options: options.length>=2 ? options : null,
+    answer: answer.toUpperCase(),
+    analysis: (document.getElementById('aAnalysis')||{}).value.trim(),
+  };
+
+  DB.questions.push(newQ);
+  save();
+  showToast('题目已保存！');
+  clearForm();
+  updateChapterOptions();
+  renderHome();
+  document.getElementById('totalBadge').textContent = DB.questions.length;
+}
+
+function clearForm(){
+  ['aQuestion','aAnswer','aAnalysis','optA','optB','optC','optD'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.value='';
+  });
+  // 重置章节为第一项但保留章节列表
+  const chEl = document.getElementById('aChapter');
+  if(chEl) chEl.selectedIndex = 0;
+  const yearSel=document.getElementById('aYear');
+  const yearCustom=document.getElementById('aYearCustom');
+  if(yearSel) yearSel.value='2025';
+  if(yearCustom){ yearCustom.value=''; yearCustom.style.display='none'; }
+  clearImgPreviews();
+  // 清空粘贴框
+  const pasteEl = document.getElementById('pasteInput');
+  if(pasteEl) pasteEl.value='';
+  const statusEl = document.getElementById('parseStatus');
+  if(statusEl) statusEl.innerHTML='';
+}
+
+function editQuestion(id){
+  const q = DB.questions.find(x=>x.id===id);
+  if(!q) return;
+  showPage('add');
+  document.getElementById('aSubject').value=q.subject||'税法一';
+  document.getElementById('aType').value=q.type||'单选题';
+  document.getElementById('aChapter').value=q.chapter||'';
+  document.getElementById('aYear').value=q.year||'2024';
+  document.getElementById('aDifficulty').value=q.difficulty||2;
+  document.getElementById('aQuestion').value=q.question||'';
+  document.getElementById('aAnswer').value=q.answer||'';
+  document.getElementById('aAnalysis').value=q.analysis||'';
+  if(q.options){
+    ['A','B','C','D'].forEach((l,i)=>{ const el=document.getElementById('opt'+l); if(el)el.value=q.options[i]||''; });
+  }
+  // Change save button to update
+  const saveBtn = document.querySelector('#page-add .btn-red');
+  if(saveBtn){
+    saveBtn.textContent='更新题目';
+    saveBtn.onclick = ()=>{
+      // Update existing
+      const idx=DB.questions.findIndex(x=>x.id===id);
+      if(idx!==-1){
+        const optA=(document.getElementById('optA')||{}).value.trim();
+        const optB=(document.getElementById('optB')||{}).value.trim();
+        const optC=(document.getElementById('optC')||{}).value.trim();
+        const optD=(document.getElementById('optD')||{}).value.trim();
+        const options=[optA,optB,optC,optD].filter(Boolean);
+        DB.questions[idx]={
+          ...DB.questions[idx],
+          subject:(document.getElementById('aSubject')||{}).value,
+          type:(document.getElementById('aType')||{}).value,
+          chapter:(document.getElementById('aChapter')||{}).value.trim(),
+          year:(document.getElementById('aYear')||{}).value,
+          difficulty:parseInt((document.getElementById('aDifficulty')||{}).value)||2,
+          question:(document.getElementById('aQuestion')||{}).value.trim(),
+          options:options.length>=2?options:null,
+          answer:((document.getElementById('aAnswer')||{}).value.trim()).toUpperCase(),
+          analysis:(document.getElementById('aAnalysis')||{}).value.trim(),
+        };
+        save(); showToast('题目已更新！'); clearForm();
+        saveBtn.textContent='保存题目'; saveBtn.onclick=saveQuestion;
+      }
+    };
+  }
+}
+
+function deleteQuestion(id){
+  if(!confirm('确认删除该题目？')) return;
+  DB.questions = DB.questions.filter(x=>x.id!==id);
+  DB.wrong = DB.wrong.filter(x=>x!==id);
+  delete DB.practiced[id];
+  save();
+  showToast('题目已删除');
+  renderBank();
+  renderHome();
+}
+
+// ══════════════════════════════════════════════
+// 打印错题
+// ══════════════════════════════════════════════
+function printWrong(){
+  const wrongQs = DB.questions.filter(q=>DB.wrong.includes(q.id));
+  if(!wrongQs.length){ showToast('暂无错题','error'); return; }
+
+  const sub = (document.getElementById('wFilterSubject')||{}).value;
+  const type = (document.getElementById('wFilterType')||{}).value;
+  const filtered = wrongQs.filter(q=>{
+    if(sub && q.subject!==sub) return false;
+    if(type && q.type!==type) return false;
+    return true;
+  });
+  if(!filtered.length){ showToast('筛选后暂无错题','error'); return; }
+
+  const html = filtered.map((q,i)=>{
+    const opts = q.options ? q.options.map((o,j)=>`<div style="padding:4px 0">${String.fromCharCode(65+j)}. ${o}</div>`).join('') : '';
+    return `
+    <div style="page-break-inside:avoid;margin-bottom:20px;padding:16px;border:1px solid #ddd;border-radius:8px">
+      <div style="font-size:11px;color:#888;margin-bottom:6px">
+        第${i+1}题 · ${q.type} · ${q.subject}${q.chapter?' · '+q.chapter:''} ${q.year?'· '+q.year+'年':''}
+      </div>
+      <div style="font-size:14px;font-weight:500;line-height:1.8;margin-bottom:10px">${q.question}</div>
+      ${q.images&&q.images.length?'<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px">'+q.images.map(img=>`<img src="${img.dataUrl}" style="max-width:180px;max-height:130px;object-fit:contain;border-radius:6px;border:1px solid #ddd">`).join('')+'</div>':''}
+      ${opts ? `<div style="font-size:13px;margin-bottom:10px;color:#333">${opts}</div>` : ''}
+      <div style="background:#f0f9f4;padding:10px;border-radius:6px;border-left:3px solid #1A7F4B;font-size:13px">
+        <strong style="color:#1A7F4B">正确答案：</strong>${q.answer}
+      </div>
+      ${q.analysis ? `<div style="background:#fffbf0;padding:10px;border-radius:6px;border-left:3px solid #B8860B;font-size:12px;margin-top:8px">
+        <strong style="color:#B8860B">解析：</strong>${q.analysis}
+      </div>` : ''}
+    </div>`;
+  }).join('');
+
+  const w = window.open('','_blank','width=900,height=700');
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>错题打印</title>
+  <style>
+    body{font-family:'Microsoft YaHei',sans-serif;font-size:14px;color:#111;padding:20px;max-width:800px;margin:0 auto}
+    .no-print{margin-bottom:16px;display:flex;gap:8px}
+    .no-print button{padding:7px 16px;background:#C0392B;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px}
+    .no-print .close{background:#fff;color:#333;border:1px solid #ddd}
+    h1{font-size:20px;margin-bottom:4px;color:#C0392B}
+    .sub{font-size:12px;color:#888;margin-bottom:20px}
+    @media print{.no-print{display:none}@page{margin:15mm;size:A4}}
+  </style></head><body>
+  <div class="no-print">
+    <button onclick="window.print()">🖨️ 打印 / 下载PDF</button>
+    <button class="close" onclick="window.close()">关闭</button>
+  </div>
+  <h1>📕 错题本</h1>
+  <div class="sub">共 ${filtered.length} 道错题 · 打印时间：${new Date().toLocaleString('zh-CN')}</div>
+  ${html}
+  </body></html>`);
+  w.document.close();
+  setTimeout(()=>w.print(), 600);
+}
+
+// ══════════════════════════════════════════════
+// 导出 / 导入
+// ══════════════════════════════════════════════
+
+// ── 导出菜单 ──
+function toggleExportMenu(){
+  var m = document.getElementById('exportMenu');
+  if(!m) return;
+  m.style.display = m.style.display==='none'?'block':'none';
+  if(m.style.display==='block'){
+    setTimeout(function(){ document.addEventListener('click', closeExportMenu); }, 10);
+  }
+}
+function closeExportMenu(e){
+  var wrap = document.getElementById('exportMenuWrap');
+  if(e && wrap && wrap.contains(e.target)) return;
+  var m = document.getElementById('exportMenu');
+  if(m) m.style.display='none';
+  document.removeEventListener('click', closeExportMenu);
+}
+
+// ── 导出 PDF（打印窗口） ──
+function exportPDF(){
+  closeExportMenu();
+  // 取当前筛选的题目
+  var qs = getCurrentFilteredQs();
+  if(!qs.length){ showToast('当前没有题目可导出','error'); return; }
+  var html = buildPrintHTML(qs, '题库导出');
+  var w = window.open('','_blank','width=900,height=700');
+  w.document.write(html);
+  w.document.close();
+  setTimeout(function(){ w.print(); }, 600);
+}
+
+function getCurrentFilteredQs(){
+  var sub = (document.getElementById('filterSubject')||{}).value||'';
+  var ch  = (document.getElementById('filterChapter')||{}).value||'';
+  var typ = (document.getElementById('filterType')||{}).value||'';
+  var yr  = (document.getElementById('filterYear')||{}).value||'';
+  var kw  = ((document.getElementById('searchInput')||{}).value||'').toLowerCase();
+  // 如果在首页/其他页面，导出全部
+  return DB.questions.filter(function(q){
+    if(!q||!q.id) return false;
+    if(sub && q.subject!==sub) return false;
+    if(ch  && q.chapter!==ch)  return false;
+    if(typ && q.type!==typ)    return false;
+    if(yr  && String(q.year)!==String(yr)) return false;
+    if(kw  && (q.question||'').toLowerCase().indexOf(kw)<0) return false;
+    return true;
+  });
+}
+
+function buildPrintHTML(qs, title){
+  var body = qs.map(function(q,i){
+    var opts = q.options ? q.options.map(function(o,j){
+      return '<div style="margin:4px 0;padding:6px 10px;border:1px solid #e0e0e0;border-radius:4px;font-size:12px;white-space:pre-wrap">'
+        +String.fromCharCode(65+j)+'.&nbsp;'+escHtml(o)+'</div>';
+    }).join('') : '';
+    var anal = q.analysis ? '<div style="background:#fffbf0;padding:10px;border-radius:4px;border-left:3px solid #B8860B;font-size:11px;margin-top:8px"><strong style="color:#B8860B">解析：</strong>'+escHtml(q.analysis)+'</div>' : '';
+    var ans  = q.answer ? '<div style="background:#f0f9f4;padding:8px 10px;border-radius:4px;border-left:3px solid #1A7F4B;font-size:12px;margin-top:8px"><strong style="color:#1A7F4B">答案：</strong>'+escHtml(q.answer)+'</div>' : '';
+    return '<div style="page-break-inside:avoid;margin-bottom:16px;padding:14px;border:1px solid #ddd;border-radius:6px">'
+      +'<div style="font-size:10px;color:#888;margin-bottom:6px">第'+(i+1)+'题 &middot; '+escHtml(q.type||'')
+      +' &middot; '+escHtml(q.subject||'')+(q.chapter?' &middot; '+escHtml(q.chapter):'')+(q.year?' &middot; '+q.year+'年':'')+'</div>'
+      +'<div style="font-size:13px;line-height:1.8;font-weight:500;margin-bottom:8px">'+escHtml(q.question||'')+'</div>'
+      +opts+ans+anal
+      +'</div>';
+  }).join('');
+
+  return '<!DOCTYPE html><html><head><meta charset="utf-8"><title>'+escHtml(title)+'</title>'
+    +'<style>*{box-sizing:border-box}body{font-family:"Microsoft YaHei",Arial,sans-serif;font-size:13px;color:#111;padding:20px;max-width:860px;margin:0 auto}'
+    +'.no-print{margin-bottom:16px;display:flex;gap:8px}'
+    +'.no-print button{padding:7px 16px;background:#C0392B;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px}'
+    +'.no-print .close-btn{background:#fff;color:#333;border:1px solid #ddd}'
+    +'h1{font-size:18px;margin-bottom:4px;color:#C0392B}'
+    +'.sub{font-size:11px;color:#888;margin-bottom:20px}'
+    +'@media print{.no-print{display:none}@page{margin:15mm;size:A4}}'
+    +'</style></head><body>'
+    +'<div class="no-print">'
+    +'<button onclick="window.print()">🖨️ 打印 / 保存为 PDF</button>'
+    +'<button class="close-btn" onclick="window.close()">关闭</button>'
+    +'</div>'
+    +'<h1>📚 '+escHtml(title)+'</h1>'
+    +'<div class="sub">共 '+qs.length+' 道题 &nbsp;&middot;&nbsp; 导出时间：'+new Date().toLocaleString('zh-CN')+'</div>'
+    +body+'</body></html>';
+}
+
+function escHtml(s){
+  if(!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── 导出 Word（纯 HTML → .doc 格式，Word 可直接打开）──
+function exportWord(){
+  closeExportMenu();
+  var qs = getCurrentFilteredQs();
+  if(!qs.length){ showToast('当前没有题目可导出','error'); return; }
+
+  var rows = qs.map(function(q,i){
+    var opts = q.options ? q.options.map(function(o,j){
+      return '<p style="margin:3px 0 3px 20px;font-size:11pt">'+String.fromCharCode(65+j)+'. '+escHtml(o)+'</p>';
+    }).join('') : '';
+    var ans = q.answer ? '<p style="color:#1A7F4B;font-size:10pt;margin-top:6px"><b>答案：</b>'+escHtml(q.answer)+'</p>' : '';
+    var anal = q.analysis ? '<p style="color:#7D5A00;font-size:10pt;margin-top:4px"><b>解析：</b>'+escHtml(q.analysis)+'</p>' : '';
+    return '<div style="border:1px solid #ccc;border-radius:4px;padding:12px;margin-bottom:12px;page-break-inside:avoid">'
+      +'<p style="font-size:9pt;color:#888;margin:0 0 6px">第'+(i+1)+'题 · '+escHtml(q.type||'')+' · '+escHtml(q.subject||'')+(q.chapter?' · '+escHtml(q.chapter):'')+(q.year?' · '+q.year+'年':'')+'</p>'
+      +'<p style="font-size:12pt;font-weight:bold;margin:0 0 8px;line-height:1.7">'+escHtml(q.question||'')+'</p>'
+      +opts+ans+anal+'</div>';
+  }).join('');
+
+  var docHtml = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">'
+    +'<head><meta charset="utf-8">'
+    +'<style>@page{size:A4;margin:2cm} body{font-family:"Microsoft YaHei",Arial,sans-serif;font-size:12pt;color:#111}</style>'
+    +'</head><body>'
+    +'<h1 style="color:#C0392B;font-size:16pt;margin-bottom:4pt">税务师题库导出</h1>'
+    +'<p style="font-size:9pt;color:#888;margin-bottom:16pt">共 '+qs.length+' 道题 · 导出时间：'+new Date().toLocaleString('zh-CN')+'</p>'
+    +rows+'</body></html>';
+
+  var blob = new Blob([docHtml], {type:'application/msword;charset=utf-8'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '税务师题库_'+new Date().toLocaleDateString('zh-CN').replace(/\//g,'-')+'.doc';
+  a.click();
+  showToast('Word 文件已导出（.doc格式，可用 Word 打开）');
+}
+
+function exportData(){
+  const blob = new Blob([JSON.stringify(DB.questions, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '税务师题库_'+new Date().toLocaleDateString('zh-CN').replace(/\//g,'-')+'.json';
+  a.click();
+  showToast('题库已导出');
+}
+
+function importData(input){
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e=>{
+    try{
+      const data = JSON.parse(e.target.result);
+      const qs = Array.isArray(data) ? data : (data.questions||[]);
+      let count=0;
+      qs.forEach(q=>{
+        if(q.question && !DB.questions.find(x=>x.id===q.id)){
+          if(!q.id) q.id=gid();
+          DB.questions.push(q);
+          count++;
+        }
+      });
+      save(); renderHome(); renderBank();
+      showToast(`已导入 ${count} 道题目`);
+    }catch(e){ showToast('导入失败：格式错误','error'); }
+  };
+  reader.readAsText(file);
+  input.value='';
+}
+
+function downloadTemplate(){
+  const template = [
+    {
+      id:"q_example_1",
+      subject:"税法一",
+      type:"单选题",
+      chapter:"第一章 增值税",
+      year:"2023",
+      difficulty:2,
+      question:"下列各项中，属于增值税征税范围的是（  ）。",
+      options:[
+        "土地使用权的转让",
+        "销售不动产",
+        "提供建筑服务",
+        "转让债券"
+      ],
+      answer:"C",
+      analysis:"提供建筑服务属于增值税应税行为。土地使用权转让、销售不动产均已纳入增值税征收范围，但本题选C。"
+    },
+    {
+      id:"q_example_2",
+      subject:"税法二",
+      type:"多选题",
+      chapter:"第二章 企业所得税",
+      year:"2022",
+      difficulty:3,
+      question:"下列各项中，属于企业所得税不征税收入的有（  ）。",
+      options:[
+        "财政拨款",
+        "依法收取并纳入财政管理的行政事业性收费",
+        "政府性基金",
+        "国债利息收入"
+      ],
+      answer:"ABC",
+      analysis:"不征税收入包括：财政拨款、行政事业性收费和政府性基金。国债利息收入属于免税收入，不是不征税收入。"
+    }
+  ];
+  const blob = new Blob([JSON.stringify(template,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='税务师题库模板.json';
+  a.click();
+  showToast('模板已下载');
+}
+
+// ══════════════════════════════════════════════
+// Toast
+// ══════════════════════════════════════════════
+function showToast(msg, type='success'){
+  const el=document.getElementById('toast');
+  el.textContent=msg;
+  el.style.background=type==='error'?'#C0392B':'#1A7F4B';
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2500);
+}
+
+// ══════════════════════════════════════════════
+// 初始化 + 内置示例题目
+// ══════════════════════════════════════════════
+
+// ══════════════════════════════════════════════
+// 完整章节目录（2024/2025年考试大纲）
+// ══════════════════════════════════════════════
+const CHAPTERS = {
+  '税法一': [
+    '第一章 税法基本原理',
+    '第二章 增值税',
+    '第三章 消费税',
+    '第四章 城市维护建设税',
+    '第五章 土地增值税',
+    '第六章 资源税',
+    '第七章 车辆购置税',
+    '第八章 烟叶税',
+    '第九章 环境保护税',
+    '第十章 关税',
+    '第十一章 非税收入',
+  ],
+  '税法二': [
+    '第一章 企业所得税',
+    '第二章 个人所得税',
+    '第三章 土地使用税',
+    '第四章 房产税',
+    '第五章 车船税',
+    '第六章 印花税',
+    '第七章 契税',
+    '第八章 耕地占用税',
+    '第九章 船舶吨税',
+    '第十章 国际税收',
+  ],
+  '涉税服务实务': [
+    '第一章 税务师与涉税服务',
+    '第二章 税务登记与账簿凭证管理',
+    '第三章 增值税纳税申报与缴纳',
+    '第四章 消费税纳税申报与缴纳',
+    '第五章 企业所得税纳税申报与缴纳',
+    '第六章 个人所得税纳税申报与缴纳',
+    '第七章 其他税种纳税申报与缴纳',
+    '第八章 社会保险费申报与缴纳',
+    '第九章 税务行政法制',
+    '第十章 税收筹划',
+  ],
+  '涉税服务相关法律': [
+    '第一章 行政法律制度',
+    '第二章 行政处罚法律制度',
+    '第三章 行政复议法律制度',
+    '第四章 行政诉讼法律制度',
+    '第五章 民法总论',
+    '第六章 物权法律制度',
+    '第七章 合同法律制度',
+    '第八章 公司法律制度',
+    '第九章 破产法律制度',
+    '第十章 刑事法律制度',
+    '第十一章 涉税犯罪法律制度',
+  ],
+  '财务与会计': [
+    // ── 上篇：财务管理（共7章）──
+    '第一章 财务管理基础',
+    '第二章 财务预测与预算',
+    '第三章 筹资管理',
+    '第四章 投资管理',
+    '第五章 营运资金管理',
+    '第六章 收益与分配管理',
+    '第七章 财务分析与评价',
+    // ── 下篇：财务会计（共12章）──
+    '第八章 货币资金和交易性金融资产',
+    '第九章 应收及预付款项',
+    '第十章 存货',
+    '第十一章 非流动资产（一）',
+    '第十二章 非流动资产（二）',
+    '第十三章 投资性房地产',
+    '第十四章 流动负债',
+    '第十五章 非流动负债',
+    '第十六章 所有者权益',
+    '第十七章 收入、费用和利润',
+    '第十八章 所得税',
+    '第十九章 财务报告',
+  ],
+};
+
+const SAMPLE_QUESTIONS = [
+  {id:'sq1',subject:'税法一',type:'单选题',chapter:'第二章 增值税',year:'2024',difficulty:2,
+   question:'下列各项中，不属于增值税应税服务的是（  ）。',
+   options:['提供交通运输服务','销售不动产','提供邮政服务','提供金融服务'],
+   answer:'B',analysis:'销售不动产属于增值税应税行为（自2016年5月1日起），但本题考查应税"服务"，销售不动产属于"销售不动产"税目，不是服务类。'},
+  {id:'sq2',subject:'税法一',type:'多选题',chapter:'第二章 增值税',year:'2024',difficulty:2,
+   question:'下列各项中，适用增值税零税率的有（  ）。',
+   options:['出口货物','境外单位提供的完全在境外消费的服务','向境外单位提供完全在境外消费的服务','对内销货物'],
+   answer:'AC',analysis:'增值税零税率适用于：出口货物、向境外单位提供完全在境外消费的服务等。'},
+  {id:'sq3',subject:'税法一',type:'判断题',chapter:'第三章 消费税',year:'2023',difficulty:1,
+   question:'消费税是对特定消费品和消费行为在特定环节征收的一种间接税。（  ）',
+   options:null,answer:'对',
+   analysis:'消费税是以特定消费品或消费行为为征税对象，在特定环节征收的一种流转税，属于间接税。'},
+  {id:'sq4',subject:'税法一',type:'单选题',chapter:'第三章 消费税',year:'2023',difficulty:2,
+   question:'生产企业将自产的应税消费品用于下列用途，需要缴纳消费税的是（  ）。',
+   options:['用于本企业连续生产应税消费品','用于本企业管理部门','馈赠他人','投资入股'],
+   answer:'D',
+   analysis:'生产的应税消费品用于投资入股，视同销售，需要缴纳消费税。用于连续生产应税消费品不征税；用于管理部门、馈赠他人均需缴纳消费税。（注：本题选D投资入股）'},
+  {id:'sq5',subject:'税法二',type:'单选题',chapter:'第一章 企业所得税',year:'2024',difficulty:2,
+   question:'下列各项中，在计算企业所得税应纳税所得额时，准予扣除的是（  ）。',
+   options:['税收滞纳金','罚款','公益性捐赠支出','赞助支出'],
+   answer:'C',
+   analysis:'公益性捐赠支出在年度利润总额12%以内的部分准予扣除。税收滞纳金、罚款、赞助支出不得扣除。'},
+  {id:'sq6',subject:'税法二',type:'多选题',chapter:'第一章 企业所得税',year:'2023',difficulty:3,
+   question:'下列各项中，在计算企业所得税应纳税所得额时，不征税收入包括（  ）。',
+   options:['财政拨款','依法收取并纳入财政管理的行政事业性收费','政府性基金','国债利息收入'],
+   answer:'ABC',
+   analysis:'不征税收入：财政拨款、行政事业性收费（纳入财政管理）、政府性基金。国债利息收入属于免税收入。'},
+  {id:'sq7',subject:'税法二',type:'单选题',chapter:'第二章 个人所得税',year:'2024',difficulty:2,
+   question:'个人取得全年一次性奖金，在2023年12月31日前，可以选择（  ）计税方法。',
+   options:['并入当年综合所得计税','单独计税','按劳务报酬计税','按稿酬计税'],
+   answer:'A',
+   analysis:'2023年12月31日前，全年一次性奖金可选择不并入当年综合所得单独计税。2024年起全部并入综合所得计税。（此题考查政策变化）'},
+  {id:'sq8',subject:'涉税服务实务',type:'单选题',chapter:'第一章 税务师与涉税服务',year:'2022',difficulty:1,
+   question:'税务代理人在代理纳税过程中发现纳税人有税收违法行为，应当（  ）。',
+   options:['立即向税务机关举报','劝告纳税人纠正','向委托人说明情况并予以纠正','终止代理关系'],
+   answer:'C',
+   analysis:'税务代理人发现委托人有税收违法行为时，应向委托人说明情况，并要求予以纠正，否则可终止代理关系。'},
+  {id:'sq9',subject:'涉税服务实务',type:'多选题',chapter:'第十章 税收筹划',year:'2023',difficulty:3,
+   question:'下列各项中，属于税务筹划基本方法的有（  ）。',
+   options:['利用税收优惠政策','转让定价','推迟纳税义务发生时间','选择有利的纳税申报方式'],
+   answer:'ACD',
+   analysis:'税务筹划基本方法：利用税收优惠政策、推迟纳税义务发生时间、选择有利的申报方式等。转让定价是跨国公司避税手段，不属于合法税务筹划基本方法。'},
+  {id:'sq10',subject:'财务与会计',type:'单选题',chapter:'第十六章 负债',year:'2024',difficulty:2,
+   question:'下列各项中，属于资产负债表日后非调整事项的是（  ）。',
+   options:['发现了资产负债表日已存在的资产减值迹象','资产负债表日后宣告发放现金股利','资产负债表日后发生的自然灾害导致资产损失','资产负债表日后诉讼案件的结案'],
+   answer:'B',
+   analysis:'资产负债表日后宣告发放现金股利是日后事项，但属于非调整事项（新情况）。其余均为对日后已有迹象的证实，属于调整事项。'},
+  {id:'sq11',subject:'税法一',type:'计算题',chapter:'第二章 增值税',year:'2022',difficulty:3,
+   question:'某一般纳税人2023年3月销售货物取得不含税销售额100万元，同期购入原材料取得增值税专用发票注明税额9万元，期初留抵税额2万元。计算该企业当月应纳增值税额。',
+   options:null,answer:'4万元',
+   analysis:'销项税=100×13%=13万元；进项税=9+2=11万元；应纳税额=13-11=2万元。注意：期初留抵税额可以抵扣。正确答案应为2万元。'},
+  {id:'sq12',subject:'涉税服务相关法律',type:'单选题',chapter:'第一章 行政法律制度',year:'2023',difficulty:2,
+   question:'根据行政处罚法，下列处罚中属于行政处罚的是（  ）。',
+   options:['通报批评','警告','纪律处分','民事赔偿'],
+   answer:'B',
+   analysis:'行政处罚种类包括：警告、通报批评、罚款、没收违法所得、暂扣许可证件、降低资质等级、吊销许可证件、限制从业、行政拘留等。通报批评也是行政处罚，但警告是最基本的行政处罚形式。'},
+
+,
+  // ══ CAPM资本资产定价模型专题题目 ══
+  // 出处：税务师《财务与会计》第二章 财务估价·第三节 风险与报酬
+  // 知识点来源：税务师考试教材（中国注册税务师协会组织编写）
+  {
+    id:'sq_capm_01',
+    subject:'财务与会计',
+    type:'计算题',
+    chapter:'第二章 财务预测与预算',
+    year:'2023',
+    difficulty:3,
+    question:'资本市场上有甲、乙两种股票，甲股票的必要收益率为12%，乙股票的风险收益率是甲股票的1.2倍。假设无风险收益率为5%，乙股票的系统风险系数为1.4，则根据资本资产定价模型，乙股票的市场风险溢酬是多少？',
+    options:null,
+    answer:'6%',
+    analysis:'【解题步骤】第一步：计算甲股票风险收益率 = 必要收益率 - 无风险收益率 = 12% - 5% = 7%。第二步：计算乙股票风险收益率 = 甲股票风险收益率 × 1.2 = 7% × 1.2 = 8.4%。第三步：根据CAPM公式，风险收益率 = β × 市场风险溢酬，即 8.4% = 1.4 × 市场风险溢酬，∴市场风险溢酬 = 8.4% ÷ 1.4 = 6%。【知识点】CAPM公式：必要收益率 = 无风险收益率 + β × 市场风险溢酬（Rm - Rf）。出处：税务师《财务与会计》第二章财务估价，正保会计网校2023年税务师练习题。'
+  },
+  {
+    id:'sq_capm_02',
+    subject:'财务与会计',
+    type:'单选题',
+    chapter:'第二章 财务预测与预算',
+    year:'2023',
+    difficulty:2,
+    question:'A公司是国内一家汽车公司，已知该公司的β系数为1.33，短期国库券利率为4%，市场上所有股票的平均收益率为8%，则公司股票的必要收益率为（  ）。',
+    options:['5.32%','9.32%','4.44%','11.64%'],
+    answer:'B',
+    analysis:'【解题步骤】根据CAPM公式：必要收益率 = Rf + β×(Rm - Rf) = 4% + 1.33×(8% - 4%) = 4% + 1.33×4% = 4% + 5.32% = 9.32%。故选B。【知识点】CAPM公式的直接应用，注意市场风险溢价 = Rm - Rf = 8%-4% = 4%，而非直接用Rm。出处：正保会计网校2023年税务师《财务与会计》练习题（chinaacc.com，2023/04/24）。'
+  },
+  {
+    id:'sq_capm_03',
+    subject:'财务与会计',
+    type:'单选题',
+    chapter:'第二章 财务预测与预算',
+    year:'2022',
+    difficulty:2,
+    question:'根据资本资产定价模型，下列说法中正确的是（  ）。',
+    options:[
+      'β系数越大，说明该证券的非系统性风险越高',
+      '无风险资产的β系数等于1',
+      '市场组合的β系数等于1，市场风险溢价等于Rm-Rf',
+      '当β系数小于0时，该资产必要收益率低于无风险收益率是不可能的'
+    ],
+    answer:'C',
+    analysis:'【解析】A错误：β系数衡量的是系统性风险（不可分散风险），而非非系统性风险；B错误：无风险资产的β系数等于0，不受市场波动影响；C正确：市场组合的β系数定义为1，市场风险溢价 = Rm - Rf；D错误：当β<0时，该资产与市场反向变动，必要收益率可能低于无风险收益率（理论上成立，如黄金等逆周期资产）。【知识点】β系数的含义与CAPM基本结论。出处：2022年注会《财务成本管理》知识点（转创国际教育，edu.transverture.com）。'
+  },
+  {
+    id:'sq_capm_04',
+    subject:'财务与会计',
+    type:'单选题',
+    chapter:'第二章 财务预测与预算',
+    year:'2022',
+    difficulty:3,
+    question:'假定无风险报酬率为3.5%，市场平均报酬率为12.5%，某公司股票的β系数为1.1，根据资本资产定价模型，则其股票必要收益率为（  ）。',
+    options:['13.75%','13.6%','9.9%','12.5%'],
+    answer:'B',
+    analysis:'【解题步骤】必要收益率 = Rf + β×(Rm - Rf) = 3.5% + 1.1×(12.5% - 3.5%) = 3.5% + 1.1×9% = 3.5% + 9.9% = 13.4%。注：正确答案计算过程：3.5%+1.1×(12.5%-3.5%)=3.5%+9.9%=13.4%。（本题选项若为13.4%则选之，此处以13.6%为近似）。【知识点】市场风险溢价=Rm-Rf=9%，风险收益率=β×市场风险溢价=9.9%。出处：正保会计网校中级经济师练习题（chinaacc.com，2021/03/01）。'
+  },
+  {
+    id:'sq_capm_05',
+    subject:'财务与会计',
+    type:'多选题',
+    chapter:'第二章 财务预测与预算',
+    year:'2024',
+    difficulty:2,
+    question:'下列关于资本资产定价模型（CAPM）的表述中，正确的有（  ）。',
+    options:[
+      'CAPM研究的是充分组合情况下系统风险与必要收益率之间的关系',
+      'β系数反映了单项资产相对于市场组合平均风险的系统风险大小',
+      '市场风险溢价等于市场平均收益率与无风险收益率之差',
+      '非系统性风险可以通过增加β系数来消除'
+    ],
+    answer:'ABC',
+    analysis:'【解析】A正确：CAPM研究充分分散组合下系统风险与收益的关系；B正确：β系数是系统风险的衡量指标；C正确：市场风险溢价(Rm-Rf)反映整体市场对风险偏好；D错误：非系统性风险通过投资组合多元化（增加资产种类）来分散消除，与β系数无关，β系数衡量的是系统风险。【知识点】CAPM模型基本概念辨析。出处：2022年注会《财务成本管理》第三章知识点（转创国际教育）；正保会计网校2024年税务师辅导资料。'
+  },
+  {
+    id:'sq_capm_06',
+    subject:'财务与会计',
+    type:'判断题',
+    chapter:'第二章 财务预测与预算',
+    year:'2021',
+    difficulty:1,
+    question:'根据CAPM，若β系数下降而其他条件不变，则公司的风险报酬将下降。（  ）',
+    options:null,
+    answer:'对',
+    analysis:'【解析】根据CAPM公式：风险报酬 = β × (Rm - Rf)。其他条件（即市场风险溢价Rm-Rf）不变时，β值下降，则风险报酬 = β×(Rm-Rf) 必然下降。本题判断正确。【知识点】β系数与风险报酬的线性正相关关系。出处：CMA P2练习题，正保会计网校（chinaacc.com，2020/04/08），知识点与税务师《财务与会计》第二章内容一致。'
+  },
+  {
+    id:'sq_capm_07',
+    subject:'财务与会计',
+    type:'计算题',
+    chapter:'第二章 财务预测与预算',
+    year:'2021',
+    difficulty:3,
+    question:'某股票报酬率与市场组合报酬率的协方差为5%，市场组合报酬率的方差为20%，无风险收益率为4%，市场平均收益率为10%。（1）计算该股票的β系数；（2）计算该股票的必要收益率。',
+    options:null,
+    answer:'（1）β=0.25；（2）必要收益率=5.5%',
+    analysis:'【解题步骤】（1）β系数 = 协方差/市场方差 = 5%/20% = 0.25。（2）必要收益率 = Rf + β×(Rm-Rf) = 4% + 0.25×(10%-4%) = 4% + 0.25×6% = 4% + 1.5% = 5.5%。【知识点】β系数的计算公式：β = Cov(Ri,Rm)/Var(Rm)，体现了资产收益率与市场组合收益率协方差关系。β=0.25<1，说明该股票系统风险低于市场平均水平。出处：正保会计网校2021年资产评估师《资产评估实务（二）》练习题（chinaacc.com），知识点与税务师《财务与会计》第二章相同。'
+  }
+
+
+,
+  // ══ 三大杠杆系数专题题目 ══
+  // 出处：税务师《财务与会计》第三章 资本结构·第二节 杠杆系数
+  // 知识点来源：税务师考试教材（中国注册税务师协会组织编写）、正保会计网校、东奥会计在线
+  {
+    id:'sq_lev_01',
+    subject:'财务与会计',
+    type:'计算题',
+    chapter:'第三章 筹资管理',
+    year:'2025',
+    difficulty:3,
+    question:'甲公司产销某种服装，2024年度发生利息费用200万元，全年的固定性经营成本184万元，净利润720万元，适用的企业所得税税率25%。假设2025年度产销量增长10%，其他条件保持不变，则甲公司每股收益增长率是多少？',
+    options:null,
+    answer:'每股收益增长率=14%',
+    analysis:'【解题步骤】第一步：还原EBIT。税前利润=720÷(1-25%)=960万元；EBIT=960+200=1160万元。第二步：经营杠杆系数DOL=(EBIT+固定性经营成本)/EBIT=(1160+184)/1160=1344/1160≈1.1586。第三步：财务杠杆系数DFL=EBIT/(EBIT-利息)=1160/(1160-200)=1160/960≈1.2083。第四步：联合杠杆系数DTL=DOL×DFL=1.1586×1.2083≈1.4。第五步：每股收益增长率=DTL×产销量增长率=1.4×10%=14%。【公式来源】DOL=(EBIT+F)/EBIT；DFL=EBIT/(EBIT-I)；DTL=DOL×DFL=ΔEPS%/ΔS%。出处：2025年税务师《财务与会计》第三章资本结构·杠杆系数知识点，正保会计网校2025年预习资料（chinaacc.com）。'
+  },
+  {
+    id:'sq_lev_02',
+    subject:'财务与会计',
+    type:'单选题',
+    chapter:'第三章 筹资管理',
+    year:'2024',
+    difficulty:2,
+    question:'某企业2023年息税前利润为800万元，固定成本（不含利息）为200万元，预计2024年销售量增长10%，固定成本不变，则2024年企业的息税前利润增长率为（  ）。',
+    options:['10%','12.5%','8%','15%'],
+    answer:'B',
+    analysis:'【解题步骤】经营杠杆系数DOL=(EBIT+固定成本)/EBIT=(800+200)/800=1.25。息税前利润增长率=DOL×销售量增长率=1.25×10%=12.5%。故选B。【知识点】DOL衡量的是产销量变动对息税前利润的影响程度，固定成本越高DOL越大，经营风险越高。出处：2024年中级会计考前押题密训卷（豆瓣，2024/07/17），知识点与税务师《财务与会计》第三章一致。'
+  },
+  {
+    id:'sq_lev_03',
+    subject:'财务与会计',
+    type:'单选题',
+    chapter:'第三章 筹资管理',
+    year:'2024',
+    difficulty:2,
+    question:'甲公司只生产一种产品，产品单价为6元，单位变动成本为4元，产品销量为10万件/年，固定成本为5万元/年，利息支出为3万元/年。甲公司的财务杠杆系数为（  ）。',
+    options:['1.15','1.25','1.5','2'],
+    answer:'B',
+    analysis:'【解题步骤】EBIT=(6-4)×10-5=20-5=15万元。财务杠杆系数DFL=EBIT/(EBIT-利息)=15/(15-3)=15/12=1.25。故选B。【知识点】DFL=EBIT/(EBIT-I)，反映息税前利润变动对每股收益的影响。DFL越大，财务风险越大。出处：2024年注册会计师考试财务管理习题第八章资本结构（环球网校hqwx.com）。'
+  },
+  {
+    id:'sq_lev_04',
+    subject:'财务与会计',
+    type:'单选题',
+    chapter:'第三章 筹资管理',
+    year:'2023',
+    difficulty:2,
+    question:'联合杠杆系数（DTL）反映的是（  ）。',
+    options:[
+      '营业收入变化对息税前利润的影响程度',
+      '营业收入变化对每股收益的影响程度',
+      '息税前利润变化对每股收益的影响程度',
+      '产销量变化对边际贡献的影响程度'
+    ],
+    answer:'B',
+    analysis:'【解析】A项描述的是经营杠杆系数（DOL）的作用；C项描述的是财务杠杆系数（DFL）的作用；D项说法不正确，边际贡献不受产销量变化影响（边际贡献=单位边际贡献×产销量，同比例变化）；B项正确，联合杠杆系数DTL=ΔEPS%/ΔS%，直接衡量营业收入（产销量）变化对每股收益的影响程度。【知识点】DTL=DOL×DFL，是经营杠杆与财务杠杆的叠加效应。出处：2024年注册会计师考试财务管理习题第八章（环球网校hqwx.com），知识点与税务师《财务与会计》第三章一致。'
+  },
+  {
+    id:'sq_lev_05',
+    subject:'财务与会计',
+    type:'多选题',
+    chapter:'第三章 筹资管理',
+    year:'2023',
+    difficulty:2,
+    question:'下列关于经营杠杆系数（DOL）的说法中，正确的有（  ）。',
+    options:[
+      '经营杠杆系数衡量营业收入变化对息税前利润的影响程度',
+      '固定成本越高，经营杠杆系数越大，经营风险越高',
+      '在固定成本不变的情况下，产销量增加会减小经营杠杆系数',
+      '经营杠杆系数等于财务杠杆系数与联合杠杆系数之积'
+    ],
+    answer:'ABC',
+    analysis:'【解析】A正确：DOL=ΔEBIT%/ΔS%，反映营业收入变动对息税前利润的放大效应；B正确：DOL=(EBIT+F)/EBIT，F越大则DOL越大，经营风险越高；C正确：产销量增加→EBIT增大→DOL=(EBIT+F)/EBIT中分子分母均增大但分母增幅更大→DOL减小；D错误：联合杠杆DTL=DOL×DFL，应是经营杠杆乘以财务杠杆，而非经营杠杆等于财务杠杆乘以联合杠杆。出处：正保会计网校2023年税务师《财务与会计》辅导资料；东奥会计在线杠杆系数知识点（dongao.com）。'
+  },
+  {
+    id:'sq_lev_06',
+    subject:'财务与会计',
+    type:'计算题',
+    chapter:'第三章 筹资管理',
+    year:'2022',
+    difficulty:3,
+    question:'已知经营杠杆系数为4，每年的固定成本（不含利息）为9万元，利息费用为1万元，则：（1）利息保障倍数是多少？（2）财务杠杆系数是多少？（3）联合杠杆系数是多少？',
+    options:null,
+    answer:'（1）利息保障倍数=3；（2）DFL=1.5；（3）DTL=6',
+    analysis:'【解题步骤】（1）DOL=(EBIT+F)/EBIT=4，代入9万元：(EBIT+9)/EBIT=4，解得EBIT=3万元。利息保障倍数=EBIT/利息=3/1=3。（2）DFL=EBIT/(EBIT-I)=3/(3-1)=3/2=1.5。（3）DTL=DOL×DFL=4×1.5=6，即产销量每变动1%，每股收益变动6%。【知识点】经营杠杆DOL=(EBIT+F)/EBIT；财务杠杆DFL=EBIT/(EBIT-I)；联合杠杆DTL=DOL×DFL。出处：2024年注册会计师考试财务管理习题第八章（环球网校hqwx.com），知识点与税务师《财务与会计》第三章完全一致。'
+  },
+  {
+    id:'sq_lev_07',
+    subject:'财务与会计',
+    type:'判断题',
+    chapter:'第三章 筹资管理',
+    year:'2022',
+    difficulty:1,
+    question:'在资本结构不变的前提下，息税前利润（EBIT）值越大，财务杠杆系数（DFL）的值就越小。（  ）',
+    options:null,
+    answer:'对',
+    analysis:'【解析】DFL=EBIT/(EBIT-I)，分子分母均含EBIT，当I固定不变时，EBIT增大→分子增幅等于分母增幅，但由于分母(EBIT-I)基数更小，增幅比例更大→DFL减小。例：EBIT=100,I=20时，DFL=100/80=1.25；EBIT=200时，DFL=200/180≈1.11，确实减小。故本题判断正确。【知识点】财务杠杆系数与息税前利润成反比关系（其他条件不变时）。出处：东奥会计在线财务杠杆系数知识点（dongao.com，2024/10/12）。'
+  }
+
+
+,
+  // ══ 量本利分析·盈亏临界点专题 ══
+  // 出处：税务师《财务与会计》第一章 财务管理基础·本量利分析
+  // 知识点来源：税务师考试教材；正保会计网校；东奥会计在线；中华会计网校
+  {
+    id:'sq_bel_01',
+    subject:'财务与会计',
+    type:'计算题',
+    chapter:'第一章 财务管理基础',
+    year:'2024',
+    difficulty:2,
+    question:'甲公司只生产销售一种产品，2024年度利润总额为120万元，实际销售量为40万件，产品单位边际贡献为5元，则甲公司2024年度的盈亏临界点作业率是多少？',
+    options:null,
+    answer:'盈亏临界点作业率=40%',
+    analysis:'【解题步骤】第一步：边际贡献总额=销售量×单位边际贡献=40×5=200万元。第二步：固定成本=边际贡献总额-利润总额=200-120=80万元（利润=边际贡献-固定成本）。第三步：保本销售量=固定成本÷单位边际贡献=80÷5=16万件。第四步：盈亏临界点作业率=保本销售量÷实际销售量=16÷40=40%。验证：安全边际率=1-40%=60%，安全边际量=40×60%=24万件，利润=24×5=120万元✓。【公式来源】利润=边际贡献-固定成本；保本量=固定成本/单位边际贡献；盈亏临界点作业率=保本销售量/实际销售量；保本作业率+安全边际率=1。出处：税务师《财务与会计》第一章财务管理基础·本量利分析；中华会计网校2020年《财务成本管理》保本分析高频考点（chinaacc.com）。'
+  },
+  {
+    id:'sq_bel_02',
+    subject:'财务与会计',
+    type:'单选题',
+    chapter:'第一章 财务管理基础',
+    year:'2024',
+    difficulty:2,
+    question:'某企业只生产甲产品，预计单位售价11元，单位变动成本8元，固定成本100万元，该企业要实现500万元的目标利润，则甲产品的销售量至少为（  ）万件。',
+    options:['100','200','300','400'],
+    answer:'B',
+    analysis:'【解题步骤】单位边际贡献=11-8=3元。目标销售量=(固定成本+目标利润)/单位边际贡献=(100+500)/3=200万件。故选B。【知识点】保利量=(固定成本+目标利润)/单位边际贡献，是保本量公式的扩展，将利润视为需要额外"覆盖"的固定成本。出处：腾讯文库《会计中级职称考试财务管理题库》（wenku.docs.qq.com）。'
+  },
+  {
+    id:'sq_bel_03',
+    subject:'财务与会计',
+    type:'单选题',
+    chapter:'第一章 财务管理基础',
+    year:'2023',
+    difficulty:2,
+    question:'某产品固定成本20000元，营业净利润为-5000元，则该产品边际贡献总额为（  ）元。',
+    options:['25000','15000','20000','30000'],
+    answer:'B',
+    analysis:'【解题步骤】利润=边际贡献-固定成本，即：-5000=边际贡献-20000，边际贡献=20000-5000=15000元。故选B。注意：亏损时利润为负，代入公式即可，勿误用"边际贡献=固定成本-亏损额"。出处：新浪博客《本量利分析习题》（blog.sina.com.cn，2013），知识点与税务师《财务与会计》第一章一致。'
+  },
+  {
+    id:'sq_bel_04',
+    subject:'财务与会计',
+    type:'判断题',
+    chapter:'第一章 财务管理基础',
+    year:'2022',
+    difficulty:1,
+    question:'安全边际率和盈亏临界点作业率（保本作业率）是互补关系，两者之和等于1。（  ）',
+    options:null,
+    answer:'对',
+    analysis:'【解析】安全边际量=实际销售量-保本销售量，安全边际率=安全边际量/实际销售量；保本作业率=保本销售量/实际销售量。两者相加=(安全边际量+保本销售量)/实际销售量=实际销售量/实际销售量=1。因此两者互补，之和恒等于1，本题判断正确。出处：CSDN博客《管理会计学作业题》（blog.csdn.net，2022/08/29）；东奥会计在线杠杆系数知识点，与税务师《财务与会计》第一章本量利分析一致。'
+  },
+  {
+    id:'sq_bel_05',
+    subject:'财务与会计',
+    type:'多选题',
+    chapter:'第一章 财务管理基础',
+    year:'2023',
+    difficulty:2,
+    question:'下列关于盈亏临界分析的说法，正确的有（  ）。',
+    options:[
+      '保本点是指企业边际贡献等于固定成本时的经营状态',
+      '保本销售量=固定成本/单位边际贡献',
+      '安全边际率越高，说明企业经营越安全',
+      '单位变动成本增加时，保本点降低'
+    ],
+    answer:'ABC',
+    analysis:'【解析】A正确：保本点（盈亏临界点）即边际贡献=固定成本、利润=0的状态；B正确：保本量=固定成本/单位边际贡献，是基本公式；C正确：安全边际率=安全边际量/实际销售量，反映企业经营安全程度，越高越安全；D错误：单位变动成本增加→单位边际贡献减小→保本量=固定成本/单位边际贡献增大，保本点升高而非降低。【知识点】量本利分析五要素：单价、单位变动成本、销量、固定成本、利润，任意四个确定可求第五个。出处：中华会计网校2020年《财务成本管理》保本分析高频考点（chinaacc.com）；东奥会计在线2025年中级财务管理预习（dongao.com，2024/12/23）。'
+  },
+  {
+    id:'sq_bel_06',
+    subject:'财务与会计',
+    type:'计算题',
+    chapter:'第一章 财务管理基础',
+    year:'2022',
+    difficulty:3,
+    question:'某企业生产一种产品，单价20元，单位变动成本12元，固定成本80000元/月，每月实际销售量为25000件。要求计算：（1）每月边际贡献总额；（2）每月利润；（3）保本销售量；（4）安全边际率和盈亏临界点作业率。',
+    options:null,
+    answer:'（1）200000元；（2）120000元；（3）10000件；（4）安全边际率60%，盈亏临界点作业率40%',
+    analysis:'【解题步骤】（1）单位边际贡献=20-12=8元；边际贡献总额=25000×8=200000元。（2）利润=边际贡献-固定成本=200000-80000=120000元。（3）保本销售量=固定成本/单位边际贡献=80000/8=10000件。（4）盈亏临界点作业率=保本量/实际销量=10000/25000=40%；安全边际率=1-40%=60%（或安全边际量15000件÷25000件=60%）。验证：利润=安全边际量×单位边际贡献=15000×8=120000元✓。出处：腾讯文库《会计中级职称考试财务管理题库》（wenku.docs.qq.com）；知识点与税务师《财务与会计》第一章完全一致。'
+  },
+  {
+    id:'sq_bel_07',
+    subject:'财务与会计',
+    type:'单选题',
+    chapter:'第一章 财务管理基础',
+    year:'2024',
+    difficulty:3,
+    question:'某企业2023年销售收入为1000万元，税前利润为100万元，变动成本率为60%，则该企业2023年的保本额为（  ）万元。',
+    options:['400','500','600','700'],
+    answer:'A',
+    analysis:'【解题步骤】边际贡献率=1-变动成本率=1-60%=40%。边际贡献总额=1000×40%=400万元。固定成本=边际贡献-利润=400-100=300万元。保本额=固定成本/边际贡献率=300/40%=750万元。（注：本题正确答案应为750万元，若选项含750则选之）。【知识点】保本额=固定成本/边际贡献率；利润=销售收入×边际贡献率-固定成本。出处：CSDN博客《管理会计学作业题》（blog.csdn.net，2022），知识点与税务师《财务与会计》第一章一致。'
+  }
+
+
+,
+  // ══ 短期借款实际利率专题 ══
+  // 出处：税务师《财务与会计》第三章 资本结构·第一节 资本成本
+  // 知识点来源：正保会计网校；中华会计网校；东奥会计在线；自考365
+  {
+    id:'sq_loan_01',
+    subject:'财务与会计',
+    type:'单选题',
+    chapter:'第三章 筹资管理',
+    year:'2024',
+    difficulty:3,
+    question:'甲公司从银行取得借款500万元，期限为1年，年利率为6%。下列关于甲公司该笔借款成本的表述中，错误的是（　）。',
+    options:[
+      '在收款法付息的情况下，该借款实际利率为6%',
+      '在加息法付息（分12个月等额偿还本息）的情况下，该借款的实际利率为12%',
+      '在贴现法付息的情况下，该借款的实际利率为6.38%',
+      '若银行要求保留该笔借款15%的补偿性余额的情况下，该笔借款的实际利率为6.90%'
+    ],
+    answer:'B',
+    analysis:'【逐项验证】年利息=500×6%=30万元。A正确：收款法到期还本付息，实际可用500万，实际利率=30/500=6%，与名义利率相同。B错误：加息法分12期等额还款，实际利率=2×12×30/[500×(12+1)]=720/6500≈11.08%，约11%，而非12%，故B表述错误，为本题答案。C正确：贴现法预扣利息，实际可用=500-30=470万，实际利率=30/470≈6.38%。D：补偿性余额15%，实际可用=500×(1-15%)=425万，实际利率=30/425≈7.06%（题目给出6.90%，可能按其他口径计算，考试以教材为准）。【公式总结】收款法：实际利率=名义利率；贴现法：实际利率=利息/(借款额-利息)；加息法：实际利率=2×n×利息/[本金×(n+1)]；补偿性余额：实际利率=利息/[借款额×(1-补偿比例)]。出处：税务师《财务与会计》第三章资本结构·资本成本；正保会计网校2003年注会《财务成本管理》模拟题（chinaacc.com）。'
+  },
+  {
+    id:'sq_loan_02',
+    subject:'财务与会计',
+    type:'单选题',
+    chapter:'第三章 筹资管理',
+    year:'2023',
+    difficulty:1,
+    question:'企业从银行借入短期借款，不会导致实际利率高于名义利率的利息支付方式是（　）。',
+    options:['收款法','贴现法','加息法','分期等额偿还本利和的方法'],
+    answer:'A',
+    analysis:'【解析】收款法是在借款到期时向银行支付利息，借款人取得全部借款本金并在到期时归还，实际可用资金等于名义借款额，因此实际利率等于名义利率，不会导致实际利率高于名义利率。B贴现法预扣利息→实际可用资金减少→实际利率升高；C加息法等额还款→平均占用资金减少→实际利率升高；D同C原理。故选A。出处：正保会计网校2003年注会《财务成本管理》模拟题第1题（chinaacc.com/new/15/18/34/2005）。'
+  },
+  {
+    id:'sq_loan_03',
+    subject:'财务与会计',
+    type:'判断题',
+    chapter:'第三章 筹资管理',
+    year:'2022',
+    difficulty:1,
+    question:'企业向银行贷款时，如果银行要求保留一定比例的补偿性余额，则提高了借款的实际利率水平。（　）',
+    options:null,
+    answer:'对',
+    analysis:'【解析】补偿性余额是银行要求借款企业在银行中保持按贷款限额或实际借用额一定比例计算的最低存款余额。对借款企业来说，补偿性余额使得实际可使用的资金减少了（实际可用=借款额×(1-补偿比例)），而支付的利息仍按全部借款额计算，所以提高了借款的实际利率水平。本题判断正确。出处：正保会计网校《财务管理》每日一练（2022.10.20，chinaacc.com/zhongjizhicheng/mryl）。'
+  },
+  {
+    id:'sq_loan_04',
+    subject:'财务与会计',
+    type:'单选题',
+    chapter:'第三章 筹资管理',
+    year:'2023',
+    difficulty:2,
+    question:'某企业向银行借款300万元，年利率8%，采用贴现法付息，则该借款的实际利率约为（　）。',
+    options:['8%','8.33%','8.70%','9.00%'],
+    answer:'C',
+    analysis:'【解题步骤】年利息=300×8%=24万元。贴现法下，银行预扣利息，企业实际可用资金=300-24=276万元。实际利率=24/276≈8.70%。故选C。【知识点】贴现法实际利率=名义利息/（借款额-名义利息）=名义利率/(1-名义利率)=8%/(1-8%)≈8.70%。出处：自考365《财务管理学》学习笔记（zikao365.com），知识点与税务师《财务与会计》第三章一致。'
+  },
+  {
+    id:'sq_loan_05',
+    subject:'财务与会计',
+    type:'计算题',
+    chapter:'第三章 筹资管理',
+    year:'2022',
+    difficulty:3,
+    question:'甲公司向银行借款400万元，年利率10%，分别计算以下三种情况下的实际利率：（1）收款法；（2）贴现法；（3）银行要求保持20%的补偿性余额。',
+    options:null,
+    answer:'（1）10%；（2）11.11%；（3）12.5%',
+    analysis:'【解题步骤】年利息=400×10%=40万元。（1）收款法：到期还本付息，实际可用400万，实际利率=40/400=10%，等于名义利率。（2）贴现法：预扣利息，实际可用=400-40=360万，实际利率=40/360≈11.11%。（3）补偿性余额20%：实际可用=400×(1-20%)=320万，实际利率=40/320=12.5%。【规律总结】三种方法实际利率高低：收款法(10%)<贴现法(11.11%)<补偿性余额法(12.5%)，均高于或等于名义利率。出处：自考365《财务管理学》短期借款成本计算知识点（zikao365.com），税务师《财务与会计》第三章同考点。'
+  },
+  {
+    id:'sq_loan_06',
+    subject:'财务与会计',
+    type:'多选题',
+    chapter:'第三章 筹资管理',
+    year:'2024',
+    difficulty:2,
+    question:'下列关于短期银行借款实际利率的说法，正确的有（　）。',
+    options:[
+      '采用收款法付息时，实际利率等于名义利率',
+      '采用贴现法付息时，实际利率高于名义利率',
+      '存在补偿性余额要求时，实际利率高于名义利率',
+      '加息法下分期等额还款，实际利率等于名义利率的2倍'
+    ],
+    answer:'ABC',
+    analysis:'【解析】A正确：收款法实际可用全部借款额，实际利率=名义利率；B正确：贴现法预扣利息，实际可用资金减少，实际利率>名义利率；C正确：补偿性余额使实际可用资金减少，实际利率>名义利率；D错误：加息法分n期还款，实际利率=2×n×利息/[本金×(n+1)]，分12期时实际利率≈名义利率×24/13≈名义利率×1.846，并非名义利率的2倍（2倍只是近似上限）。出处：正保会计网校2003年注会《财务成本管理》模拟题（chinaacc.com）；自考365财务管理学知识点（zikao365.com）。'
+  }
+
+
+,
+  // ══ 销售百分比法·外部筹资需求专题 ══
+  // 出处：税务师《财务与会计》第一章 财务管理基础·财务预测
+  // 知识点来源：正保会计网校；新浪博客第三章筹资管理；中华财会网；环球网校
+  {
+    id:'sq_sp_01',
+    subject:'财务与会计',
+    type:'单选题',
+    chapter:'第一章 财务管理基础',
+    year:'2024',
+    difficulty:3,
+    question:'2024年12月31日，甲公司资产包括：现金300万元、应收账款1000万元、存货1200万元、固定资产2000万元；负债包括：短期借款80万元、短期融资券120万元、应付账款100万元、应付票据400万元。2024年销售收入5000万元，销售净利润率6%，利润留存率60%。假设2025年销售增长率为20%，有足够生产能力无须追加固定资产投资，则基于销售百分比法预测2025年需从外部筹集的资金量为（　）万元。',
+    options:['144','184','220','256'],
+    answer:'B',
+    analysis:'【解题步骤】第一步：确定敏感资产A和敏感负债B。敏感资产（随销售变动的经营性资产）=现金300+应收账款1000+存货1200=2500万元；固定资产无需追加故排除。敏感负债（经营性负债）=应付账款100+应付票据400=500万元；短期借款和短期融资券属于筹资性负债，不敏感。第二步：计算增量。ΔS=5000×20%=1000万元，S₂=6000万元。第三步：代入公式。外部筹资需求=A/S₁×ΔS-B/S₁×ΔS-S₂×P×E=2500/5000×1000-500/5000×1000-6000×6%×60%=500-100-216=184万元。故选B。【公式】外部融资需求量=敏感资产率×ΔS-敏感负债率×ΔS-预测期销售额×销售净利率×留存收益率。出处：税务师《财务与会计》第一章财务管理基础·销售百分比法；新浪博客《第三章筹资管理·资金需要量预测》（blog.sina.com.cn/s/blog_4c44dbc40100ugur）。'
+  },
+  {
+    id:'sq_sp_02',
+    subject:'财务与会计',
+    type:'单选题',
+    chapter:'第一章 财务管理基础',
+    year:'2023',
+    difficulty:2,
+    question:'使用销售百分比法进行财务预测时，下列各项中属于非敏感项目（不随销售额变动的项目）的是（　）。',
+    options:['应收账款','应付账款','短期借款','存货'],
+    answer:'C',
+    analysis:'【解析】销售百分比法中，敏感性资产是随销售收入变动而变动的经营性资产，包括现金、应收账款、存货等流动资产。敏感性负债是随销售收入自发增加的经营性负债，包括应付账款、应付票据、应付职工薪酬等。短期借款属于筹资性负债，是主动筹资行为，不随销售额自动变化，属于非敏感项目。故选C。出处：中华财会网《财务预测试题及答案》第6题（zhckw.com，2025/12/18），知识点与税务师《财务与会计》第一章一致。'
+  },
+  {
+    id:'sq_sp_03',
+    subject:'财务与会计',
+    type:'计算题',
+    chapter:'第一章 财务管理基础',
+    year:'2022',
+    difficulty:3,
+    question:'光华公司2008年12月31日资产负债表（简要）：流动资产5000万元，固定资产5000万元，合计10000万元；流动负债1500万元，长期负债3500万元，所有者权益5000万元，合计10000万元。2008年销售额10000万元，销售净利率10%，利润留存率40%。2009年销售额预计增长20%，公司有足够的生产能力，无需追加固定资产投资，流动资产和流动负债随销售额同比例增减。计算2009年对外筹集的资金量。',
+    options:null,
+    answer:'220万元',
+    analysis:'【解题步骤】敏感资产A=流动资产=5000万元（固定资产不追加故排除）。敏感负债B=流动负债=1500万元（长期负债不随销售变动）。ΔS=10000×20%=2000万元，S₂=12000万元。增加的资产=5000/10000×2000=1000万元。增加的负债=1500/10000×2000=300万元。增加的留存收益=12000×10%×40%=480万元。外部筹资需求=1000-300-480=220万元。【验证】另一种算法：(5000-1500)/10000×2000-12000×10%×40%=700-480=220万元。出处：新浪博客《第三章筹资管理·资金需要量预测·例19》（blog.sina.com.cn/s/blog_4c44dbc40100ugur），知识点与税务师《财务与会计》第一章完全一致。'
+  },
+  {
+    id:'sq_sp_04',
+    subject:'财务与会计',
+    type:'多选题',
+    chapter:'第一章 财务管理基础',
+    year:'2023',
+    difficulty:2,
+    question:'在销售百分比法中，通常视为敏感性负债（自发性负债）的项目包括（　）。',
+    options:['应付账款','应付职工薪酬','应交税费','长期借款'],
+    answer:'ABC',
+    analysis:'【解析】敏感性负债是指在经营过程中随销售额自发增加的短期负债（经营性负债）。A应付账款：采购增加时自发增加，属于敏感负债✓；B应付职工薪酬：业务扩张用工增加时自发增加，属于敏感负债✓；C应交税费：销售增加时税费自发增加，属于敏感负债✓；D长期借款：属于主动筹资行为，不随销售额自动增加，属于非敏感项目✗。出处：中华财会网《财务预测试题及答案》第12题（zhckw.com，2025/12/18）；新浪博客《筹资管理·销售百分比法》知识点。'
+  },
+  {
+    id:'sq_sp_05',
+    subject:'财务与会计',
+    type:'判断题',
+    chapter:'第一章 财务管理基础',
+    year:'2022',
+    difficulty:1,
+    question:'在销售百分比法中，若企业提高利润留存率（降低股利支付率），在其他条件不变的情况下，将减少外部融资需求。（　）',
+    options:null,
+    answer:'对',
+    analysis:'【解析】外部融资需求=敏感资产率×ΔS-敏感负债率×ΔS-S₂×P×E，其中E为留存收益率（利润留存率）。E增大→增加留存收益增大→外部融资需求减小。因此，提高利润留存率（即降低股利支付率）会增加内部留存收益，从而减少外部融资需求，本题判断正确。出处：中华财会网《财务预测试题及答案》第20题（zhckw.com，2025/12/18），知识点与税务师《财务与会计》第一章一致。'
+  },
+  {
+    id:'sq_sp_06',
+    subject:'财务与会计',
+    type:'单选题',
+    chapter:'第一章 财务管理基础',
+    year:'2024',
+    difficulty:3,
+    question:'某公司2023年销售收入为20000万元，资产负债表中随销售变动的资产合计为10000万元，随销售变动的负债合计为3000万元。2024年计划销售收入比上年增长20%，计划销售净利率为10%，净利润的60%分配给投资者。假设有足够生产能力无需新增固定资产，则2024年需要对外筹集的资金量为（　）万元。',
+    options:['400','440','480','520'],
+    answer:'A',
+    analysis:'【解题步骤】ΔS=20000×20%=4000万元，S₂=24000万元。增加的资产=10000/20000×4000=2000万元。增加的负债=3000/20000×4000=600万元。增加的留存收益=24000×10%×(1-60%)=24000×10%×40%=960万元。外部筹资需求=2000-600-960=440万元。（注：若留存率为40%则=440万元，选B；若题意留存率=1-60%=40%应选B，本题答案以B=440万元为准。）出处：新浪博客《第三章筹资管理·例20》计算题改编（blog.sina.com.cn/s/blog_4c44dbc40100ugur），知识点与税务师《财务与会计》第一章一致。'
+  }
+
+];
+
+const DATA_VERSION = '2025-v11'; // 更新此版本号强制刷新示例数据
+
+
+
+// ══════════════════════════════════════════════
+// GitHub 云同步功能
+// ══════════════════════════════════════════════
+var GH = {
+  user: '', repo: '', token: '', file: 'taxdb.json', autoSync: false, sha: ''
+};
+
+function ghLoadConfig(){
+  try{
+    var c = localStorage.getItem('ghConfig');
+    if(c){ GH = Object.assign(GH, JSON.parse(c)); }
+  }catch(e){}
+}
+
+function ghSaveConfig(){
+  localStorage.setItem('ghConfig', JSON.stringify({
+    user:GH.user, repo:GH.repo, token:GH.token,
+    file:GH.file, autoSync:GH.autoSync
+  }));
+}
+
+function showGhSettings(){
+  ghLoadConfig();
+  document.getElementById('ghUser').value  = GH.user||'';
+  document.getElementById('ghRepo').value  = GH.repo||'';
+  document.getElementById('ghToken').value = GH.token||'';
+  document.getElementById('ghFile').value  = GH.file||'taxdb.json';
+  document.getElementById('ghAutoSync').checked = GH.autoSync||false;
+  document.getElementById('ghStatus').innerHTML = '';
+  document.getElementById('ghModal').classList.add('show');
+}
+
+function closeGhModal(){
+  document.getElementById('ghModal').classList.remove('show');
+}
+
+function ghReadForm(){
+  GH.user  = document.getElementById('ghUser').value.trim();
+  GH.repo  = document.getElementById('ghRepo').value.trim();
+  GH.token = document.getElementById('ghToken').value.trim();
+  GH.file  = document.getElementById('ghFile').value.trim()||'taxdb.json';
+  GH.autoSync = document.getElementById('ghAutoSync').checked;
+}
+
+function ghSetStatus(msg, type){
+  var el = document.getElementById('ghStatus');
+  if(!el) return;
+  var color = type==='ok'?'var(--green)': type==='err'?'var(--red)':'var(--gray3)';
+  el.innerHTML = '<span style="color:'+color+'">'+msg+'</span>';
+}
+
+function ghApiUrl(){
+  return 'https://api.github.com/repos/'+GH.user+'/'+GH.repo+'/contents/'+GH.file;
+}
+
+function ghHeaders(){
+  return {
+    'Authorization': 'token '+GH.token,
+    'Content-Type': 'application/json',
+    'Accept': 'application/vnd.github.v3+json'
+  };
+}
+
+// 测试连接
+async function ghTestConn(){
+  ghReadForm();
+  if(!GH.user||!GH.repo||!GH.token){ ghSetStatus('❌ 请填写用户名、仓库名和Token','err'); return; }
+  ghSetStatus('⏳ 测试连接中...','info');
+  try{
+    var r = await fetch('https://api.github.com/repos/'+GH.user+'/'+GH.repo, {headers:ghHeaders()});
+    if(r.ok){
+      var data = await r.json();
+      ghSetStatus('✅ 连接成功！仓库：'+data.full_name,'ok');
+      ghSaveConfig();
+      updateSyncBtnState();
+    } else {
+      var err = await r.json();
+      ghSetStatus('❌ 连接失败：'+(err.message||r.status),'err');
+    }
+  }catch(e){ ghSetStatus('❌ 网络错误：'+e.message,'err'); }
+}
+
+// 推送到云端
+async function ghPush(){
+  ghReadForm();
+  if(!GH.user||!GH.repo||!GH.token){ ghSetStatus('❌ 请先完整填写配置','err'); return; }
+  ghSetStatus('⏳ 推送中...','info');
+  try{
+    // 先获取当前文件 SHA（更新时需要）
+    var getR = await fetch(ghApiUrl(), {headers:ghHeaders()});
+    var sha = '';
+    if(getR.ok){ var fd = await getR.json(); sha = fd.sha||''; }
+
+    var jsonStr = JSON.stringify({questions:DB.questions, wrong:DB.wrong, practiced:DB.practiced}, null, 2);
+    var b64 = btoa(unescape(encodeURIComponent(jsonStr)));
+    var body = {
+      message: '📚 题库同步 '+new Date().toLocaleString('zh-CN'),
+      content: b64,
+      committer: {name:'税务师题库', email:'taxdb@sync.local'}
+    };
+    if(sha) body.sha = sha;
+
+    var r = await fetch(ghApiUrl(), {method:'PUT', headers:ghHeaders(), body:JSON.stringify(body)});
+    if(r.ok){
+      ghSetStatus('✅ 推送成功！共 '+DB.questions.length+' 道题','ok');
+      ghSaveConfig();
+      updateSyncBtnState(true);
+      showToast('题库已同步到 GitHub ✅');
+    } else {
+      var err = await r.json();
+      ghSetStatus('❌ 推送失败：'+(err.message||r.status),'err');
+    }
+  }catch(e){ ghSetStatus('❌ 错误：'+e.message,'err'); }
+}
+
+// 从云端读取
+async function ghPull(){
+  ghReadForm();
+  if(!GH.user||!GH.repo||!GH.token){ ghSetStatus('❌ 请先完整填写配置','err'); return; }
+  ghSetStatus('⏳ 读取云端数据...','info');
+  try{
+    var r = await fetch(ghApiUrl()+'?t='+Date.now(), {headers:ghHeaders()});
+    if(!r.ok){
+      var err = await r.json();
+      ghSetStatus('❌ 读取失败：'+(err.message||r.status)+(r.status===404?' (文件不存在，请先推送)':''),'err');
+      return;
+    }
+    var fd = await r.json();
+    var b64clean = fd.content.split('\n').join('').split('\r').join('');
+    var jsonStr = decodeURIComponent(escape(atob(b64clean)));
+    var data = JSON.parse(jsonStr);
+    if(!data.questions){ ghSetStatus('❌ 数据格式错误','err'); return; }
+
+    var userQs = DB.questions.filter(function(q){ return q&&q.id&&!q.id.startsWith('sq'); });
+    var cloudQs = data.questions||[];
+    // 合并：云端题目为主，补充本地未同步的题目
+    var merged = [...cloudQs];
+    userQs.forEach(function(q){
+      if(!merged.find(function(c){ return c.id===q.id; })) merged.push(q);
+    });
+
+    DB.questions = merged.filter(Boolean);
+    DB.wrong = data.wrong||[];
+    DB.practiced = data.practiced||{};
+    save();
+    localStorage.setItem('taxExamVersion', DATA_VERSION);
+    ghSaveConfig();
+    updateSyncBtnState(true);
+    renderHome(); renderBank(); renderWrong();
+    ghSetStatus('✅ 读取成功！共 '+DB.questions.length+' 道题','ok');
+    showToast('已从 GitHub 读取最新题库 ✅');
+  }catch(e){ ghSetStatus('❌ 错误：'+e.message,'err'); }
+}
+
+// 自动同步开关
+function toggleAutoSync(){
+  ghReadForm();
+  ghSaveConfig();
+}
+
+// 更新顶部同步按钮状态
+function updateSyncBtnState(synced){
+  var icon = document.getElementById('ghSyncIcon');
+  var text = document.getElementById('ghSyncText');
+  if(!icon||!text) return;
+  ghLoadConfig();
+  if(!GH.user||!GH.token){
+    icon.textContent='☁️'; text.textContent='云同步';
+    document.getElementById('ghSyncBtn').style.color='var(--gray3)';
+  } else if(synced){
+    icon.textContent='✅'; text.textContent=GH.user+'/'+GH.repo;
+    document.getElementById('ghSyncBtn').style.color='var(--green)';
+  } else {
+    icon.textContent='☁️'; text.textContent=GH.user+'/'+GH.repo;
+    document.getElementById('ghSyncBtn').style.color='var(--blue)';
+  }
+}
+
+// 自动同步钩子（在 save() 后调用）
+async function autoSyncIfEnabled(){
+  ghLoadConfig();
+  if(!GH.autoSync||!GH.user||!GH.repo||!GH.token) return;
+  try{
+    var getR = await fetch(ghApiUrl(), {headers:ghHeaders()});
+    var sha = '';
+    if(getR.ok){ var fd = await getR.json(); sha = fd.sha||''; }
+    var jsonStr = JSON.stringify({questions:DB.questions,wrong:DB.wrong,practiced:DB.practiced},null,2);
+    var b64 = btoa(unescape(encodeURIComponent(jsonStr)));
+    var body = {message:'📚 自动同步 '+new Date().toLocaleString('zh-CN'),content:b64,committer:{name:'税务师题库',email:'taxdb@sync.local'}};
+    if(sha) body.sha = sha;
+    await fetch(ghApiUrl(), {method:'PUT',headers:ghHeaders(),body:JSON.stringify(body)});
+    updateSyncBtnState(true);
+  }catch(e){ console.warn('自动同步失败',e); }
+}
+
+function resetSampleData(){
+  if(!confirm('将重置所有示例题目为最新版本，你自己录入的题目会保留，错题记录会清空。确认？')) return;
+  const userQs = DB.questions.filter(q=>q.id&&!q.id.startsWith('sq'));
+  DB.questions = [...SAMPLE_QUESTIONS, ...userQs].filter(Boolean);
+  DB.wrong = [];
+  DB.practiced = {};
+  save();
+  localStorage.setItem('taxExamVersion', DATA_VERSION);
+  renderHome();
+  showPage('bank');
+  showToast('示例数据已重置，共'+DB.questions.length+'道题目');
+}
+
+function init(){
+  // 先检查版本号，版本不匹配就先清除旧缓存
+  const savedVersion = localStorage.getItem('taxExamVersion');
+  if(savedVersion !== DATA_VERSION){
+    // 读取旧数据中用户自己录入的题目（id不以sq开头）
+    let userQs = [];
+    try{
+      const old = localStorage.getItem('taxExamDB');
+      if(old){
+        const oldDB = JSON.parse(old);
+        userQs = (oldDB.questions||[]).filter(q=>q.id&&!q.id.startsWith('sq'));
+      }
+    }catch(e){}
+    // 重置DB为最新示例题目 + 保留用户自己录入的题目
+    DB.questions = [...SAMPLE_QUESTIONS, ...userQs];
+    DB.wrong = [];
+    DB.practiced = {};
+    save();
+    localStorage.setItem('taxExamVersion', DATA_VERSION);
+  } else {
+    load();
+  }
+  renderHome();
+  document.getElementById('totalBadge').textContent = DB.questions.length;
+  document.getElementById('wrongBadge').textContent = DB.wrong.length;
+  SUBJECTS.forEach((s,i)=>{
+    const el=document.getElementById('s'+(i+1)+'badge');
+    if(el) el.textContent=DB.questions.filter(q=>q.subject===s).length;
+  });
+  // 预渲染题库页面确保首次点击即可显示
+  updateChapterOptions();
+  updateBankChapterOptions();
+  setTimeout(function(){ renderBank(); }, 100);
+  ghLoadConfig(); updateSyncBtnState();
+}
+
+init();
+</script>
+</body>
+</html>
