@@ -2329,7 +2329,7 @@ const SAMPLE_QUESTIONS = [
 
 ];
 
-const DATA_VERSION = '2025-v11'; // 更新此版本号强制刷新示例数据
+const DATA_VERSION = '2025-v12'; // 更新此版本号强制刷新示例数据
 
 
 
@@ -2542,27 +2542,22 @@ function resetSampleData(){
 }
 
 function init(){
-  // 先检查版本号，版本不匹配就先清除旧缓存
+  // 先加载本地数据
+  load();
   const savedVersion = localStorage.getItem('taxExamVersion');
   if(savedVersion !== DATA_VERSION){
-    // 读取旧数据中用户自己录入的题目（id不以sq开头）
-    let userQs = [];
-    try{
-      const old = localStorage.getItem('taxExamDB');
-      if(old){
-        const oldDB = JSON.parse(old);
-        userQs = (oldDB.questions||[]).filter(q=>q.id&&!q.id.startsWith('sq'));
-      }
-    }catch(e){}
-    // 重置DB为最新示例题目 + 保留用户自己录入的题目
-    DB.questions = [...SAMPLE_QUESTIONS, ...userQs];
-    DB.wrong = [];
-    DB.practiced = {};
+    // 版本不匹配：只更新示例题，保留所有用户录入题目和错题记录
+    const userQs = DB.questions.filter(q=>q&&q.id&&!q.id.startsWith('sq'));
+    const userWrong = DB.wrong.filter(id=>userQs.find(q=>q.id===id));
+    const userPracticed = {};
+    userQs.forEach(q=>{ if(DB.practiced[q.id]) userPracticed[q.id]=DB.practiced[q.id]; });
+    DB.questions = [...SAMPLE_QUESTIONS, ...userQs].filter(Boolean);
+    DB.wrong = userWrong;
+    DB.practiced = userPracticed;
     save();
     localStorage.setItem('taxExamVersion', DATA_VERSION);
-  } else {
-    load();
   }
+  // 用户数据始终完整保留，如需恢复云端数据点云同步按钮
   renderHome();
   document.getElementById('totalBadge').textContent = DB.questions.length;
   document.getElementById('wrongBadge').textContent = DB.wrong.length;
